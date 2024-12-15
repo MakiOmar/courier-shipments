@@ -41,7 +41,7 @@ add_action(
 					// Check if the response contains success and data
 					if (jsonResponse.success && jsonResponse.data) {
 						let shipmentId = jsonResponse.data['ID'];
-						console.log( shipmentId );
+
 						// Convert the data object into a table
 						const createTableHTML = (data) => {
 							let table = '<table style="width:100%; border-collapse:collapse;">';
@@ -73,14 +73,32 @@ add_action(
 
 						// Show the SweetAlert2 popup
 						swal.fire({
-							title: "بيانات الشحنة",
+							title: "<?php esc_html_e( 'Shipment details', 'coursh' ); ?>",
 							html: createTableHTML(jsonResponse.data),
 							icon: "info",
 							width: '600px',
 							showCloseButton: true,
 							allowOutsideClick: false,
 							allowEscapeKey: false,
+							showCancelButton: true, // Optional: adds Cancel button
+							confirmButtonText: "<?php esc_html_e( 'Insert tracking', 'coursh' ); ?>",
+						}).then((result) => {
+							// Check if Confirm button was clicked
+							if (result.isConfirmed) {
+								// Show the #employee-actions-form element
+								const formElement = document.querySelector('#employee-actions-form');
+								if (formElement) {
+									formElement.style.display = 'block'; // Ensure the form is displayed
+								}
+
+								// Set the input with name shipment_id to 123
+								const shipmentInput = document.querySelector('input[name="shipment_id"]');
+								if (shipmentInput) {
+									shipmentInput.value = shipmentId; // Set the value
+								}
+							}
 						});
+
 					} else {
 						// Handle unsuccessful response
 						swal.fire({

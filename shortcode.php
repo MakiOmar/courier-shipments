@@ -128,7 +128,7 @@ add_shortcode(
 		</form>
 
 		<!-- Response Container -->
-		<div id="response"></div>
+		<div id="employee-actions"></div>
 
 		<script>
 			function startQrCodeScanner() {
