@@ -97,6 +97,7 @@ add_shortcode(
 			hx-target="#employee-actions" 
 			hx-indicator="#maglev-loading-indicator"
 			hx-swap="innerHTML"
+			style="display:none"
 		>
 			<!-- WP Nonce Field -->
 			<?php wp_nonce_field(); ?>
