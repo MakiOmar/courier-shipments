@@ -27,7 +27,7 @@ add_action(
 				function printQr( data ) {
 					// Generate print content
 					var printContent = '<div style="font-family: Arial; padding: 20px;">';
-					response.data.forEach(function(shipment) {
+					data.forEach(function(shipment) {
 						let trackingNumber = shipment.tracking_number;
 						console.log(trackingNumber);
 						printContent += '<div style="page-break-after: always;display:flex;flex-direction:column; align-items: center; justify-content:center; direction: rtl; margin: 0 auto;">' +
