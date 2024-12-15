@@ -43,7 +43,7 @@ function create_shipment_tracking_table() {
 		dbDelta( $sql );
 	}
 }
-require_once SNKS_DIR . 'includes/transaction-table.php';
+
 /**
 * Plugin activation hook
 *
