@@ -44,6 +44,7 @@ add_action(
 
 						// Convert the data object into a table
 						const createTableHTML = (data) => {
+							console.log(data);
 							let table = '<table style="width:100%; border-collapse:collapse;">';
 							table += '<tr><th style="text-align:left; padding:5px; border:1px solid #ddd;">Key</th><th style="text-align:left; padding:5px; border:1px solid #ddd;">Value</th></tr>';
 
@@ -81,22 +82,7 @@ add_action(
 							allowOutsideClick: false,
 							allowEscapeKey: false,
 							showCancelButton: true, // Optional: adds Cancel button
-							confirmButtonText: "<?php esc_html_e( 'Insert tracking', 'coursh' ); ?>",
-						}).then((result) => {
-							// Check if Confirm button was clicked
-							if (result.isConfirmed) {
-								// Show the #employee-actions-form element
-								const formElement = document.querySelector('#employee-actions-form');
-								if (formElement) {
-									formElement.style.display = 'block'; // Ensure the form is displayed
-								}
-
-								// Set the input with name shipment_id to 123
-								const shipmentInput = document.querySelector('input[name="shipment_id"]');
-								if (shipmentInput) {
-									shipmentInput.value = shipmentId; // Set the value
-								}
-							}
+							
 						});
 
 					} else {
