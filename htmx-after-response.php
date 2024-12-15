@@ -111,6 +111,44 @@ add_action(
 						});
 					}
 				}
+
+				if (form && form.hasAttribute('hx-post') && form.getAttribute('hx-target') === '#employee-actions' ) {
+					// Get the response
+					const response = event.detail.xhr.responseText;
+
+					// Parse the JSON response
+					let jsonResponse;
+					try {
+						jsonResponse = JSON.parse(response);
+					} catch (error) {
+						console.error('Failed to parse JSON:', error);
+						swal.fire({
+							title: "<?php esc_html_e( 'Errors', 'coursh' ); ?>",
+							text: "<?php esc_html_e( 'An error occured', 'coursh' ); ?>",
+							icon: "error",
+							showCloseButton: true,
+							allowOutsideClick: false,
+							allowEscapeKey: false,
+						});
+						return;
+					}
+
+					// Check if the response contains success and data
+					if (jsonResponse.success && jsonResponse.data) {
+						// Show the SweetAlert2 popup
+						swal.fire({
+							title: "<?php esc_html_e( 'Error', 'coursh' ); ?>",
+							html: createTableHTML(jsonResponse.data),
+							icon: "info",
+							width: '600px',
+							showCloseButton: true,
+							allowOutsideClick: false,
+							allowEscapeKey: false,
+							showCancelButton: true, // Optional: adds Cancel button
+							confirmButtonText: "<?php esc_html_e( 'Insert tracking', 'coursh' ); ?>",
+						})
+					}
+				}
 			});
 		</script>
 
