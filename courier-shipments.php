@@ -39,6 +39,19 @@ require_once COURSH_PATH . 'shortcode.php';
 require_once COURSH_PATH . 'htmx-after-response.php';
 
 define( 'COURSH_LOGO', get_theme_mods_child_key( 'jupiterx_logo_secondary' ) );
+
+/**
+* Plugin activation hook
+*
+* @return void
+*/
+register_activation_hook(
+	__FILE__,
+	function () {
+		create_shipment_tracking_table();
+	}
+);
+
 /**
  * Main plugin bootstrap function.
  *
