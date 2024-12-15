@@ -18,21 +18,21 @@ defined( 'ABSPATH' ) || exit;
  * @return string The full name of the user, or an empty string if not available.
  */
 function get_user_full_name( $user_id ) {
-    // Validate and sanitize the user ID.
-    $user_id = absint( $user_id );
+	// Validate and sanitize the user ID.
+	$user_id = absint( $user_id );
 
-    if ( ! $user_id ) {
-        return '';
-    }
+	if ( ! $user_id ) {
+		return '';
+	}
 
-    // Get the user's first and last names from meta.
-    $first_name = get_user_meta( $user_id, 'first_name', true );
-    $last_name  = get_user_meta( $user_id, 'last_name', true );
+	// Get the user's first and last names from meta.
+	$first_name = get_user_meta( $user_id, 'first_name', true );
+	$last_name  = get_user_meta( $user_id, 'last_name', true );
 
-    // Combine first and last name into a full name.
-    $full_name = trim( $first_name . ' ' . $last_name );
+	// Combine first and last name into a full name.
+	$full_name = trim( $first_name . ' ' . $last_name );
 
-    return $full_name;
+	return $full_name;
 }
 
 
@@ -102,15 +102,23 @@ function courier_search_tracking_number( $tracking_number ) {
 	$result = $builder->get();
 	if ( ! empty( $result ) ) {
 		$_return = $result[0];
-		unset( $_return['_ID'] );
-		unset( $_return['cct_status'] );
-		unset( $_return['terms'] );
-		unset( $_return['cct_modified'] );
-		$uthor = $_return['cct_author_id'];
-		unset( $_return['cct_author_id'] );
-		$_return['client'] = get_user_full_name( $uthor );
+
+		// Unset unwanted object properties.
+		unset( $_return->_ID );
+		unset( $_return->cct_status );
+		unset( $_return->terms );
+		unset( $_return->cct_modified );
+
+		// Get and replace the author property.
+		$author = $_return->cct_author_id;
+		unset( $_return->cct_author_id );
+
+		// Add the client name property.
+		$_return->client = get_user_full_name( $author );
+
 		return $_return;
 	}
+
 	return null;
 }
 
