@@ -141,7 +141,6 @@ add_action(
 							text: "<?php esc_html_e( 'Tracking has been inserted', 'coursh' ); ?>",
 							icon: "info",
 							width: '600px',
-							showCloseButton: true,
 							allowOutsideClick: false,
 							allowEscapeKey: false,
 							showCancelButton: true, // Optional: adds Cancel button
