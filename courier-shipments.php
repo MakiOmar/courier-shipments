@@ -30,6 +30,7 @@ define( 'COURSH_URL', plugin_dir_url( __FILE__ ) );
 define( 'COURSH_BASENAME', plugin_basename( __FILE__ ) );
 
 require_once COURSH_PATH . 'vendor/autoload.php';
+require_once COURSH_PATH . 'includes/database.php';
 require_once COURSH_PATH . 'includes/helpers.php';
 require_once COURSH_PATH . 'includes/hooks.php';
 require_once COURSH_PATH . 'ajax-actions.php';
