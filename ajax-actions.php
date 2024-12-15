@@ -27,7 +27,7 @@ add_action(
 					'logged_in_only' => false, // Set to false for both.
 				);
 				$events['insert_shipment_tracking'] = array(
-					'callback'       => 'insert_shipment_tracking_record',
+					'callback'       => 'ajax_insert_shipment_tracking',
 					'logged_in_only' => false, // Set to false for both.
 				);
 				return $events;
