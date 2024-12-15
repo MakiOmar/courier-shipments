@@ -101,6 +101,7 @@ function courier_search_tracking_number( $tracking_number ) {
 	// Execute the query and fetch the results.
 	$result = $builder->get();
 	if ( ! empty( $result ) ) {
+
 		$_return = $result[0];
 
 		// Unset unwanted object properties.
@@ -116,7 +117,19 @@ function courier_search_tracking_number( $tracking_number ) {
 		// Add the client name property.
 		$_return->client = get_user_full_name( $author );
 
-		return $_return;
+		return array(
+			'Tracking number' => $_return->tracking_number,
+			'Client name'     => $_return->client,
+			'Receive rname'   => $_return->receivername,
+			'Receive Address' => $_return->receiveraddress,
+			'Receive country' => $_return->receivercountry,
+			'Receive city'    => $_return->receivercity,
+			'Receive phone'   => $_return->receiverphone,
+			'Total weight'    => $_return->totalweight,
+			'Unit weight'     => $_return->unitweight,
+			'Description'     => $_return->contentdescription,
+			'Created at'      => $_return->cct_created,
+		);
 	}
 
 	return null;

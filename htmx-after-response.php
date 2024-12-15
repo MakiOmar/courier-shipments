@@ -46,14 +46,21 @@ add_action(
 							table += '<tr><th style="text-align:left; padding:5px; border:1px solid #ddd;">Key</th><th style="text-align:left; padding:5px; border:1px solid #ddd;">Value</th></tr>';
 
 							for (const key in data) {
-								if (data.hasOwnProperty(key)) {
-									const formattedKey = key.replace(/^cct_/, '').replace(/^./, str => str.toUpperCase());
+								if (Object.prototype.hasOwnProperty.call(data, key)) {
+									// Build the table row with the formatted key and its value
+									var style;
+									if ( key === 'Tracking number' ) {
+										style= 'background-color:#f15f22;color:#fff';
+									} else {
+										style = ';'
+									}
 									table += `<tr>
-										<td style="padding:5px; border:1px solid #ddd;">${formattedKey}</td>
-										<td style="padding:5px; border:1px solid #ddd;">${data[key]}</td>
+										<td style="padding:5px; border:1px solid #ddd;${style}">${key}</td>
+										<td style="padding:5px; border:1px solid #ddd;${style}">${data[key]}</td>
 									</tr>`;
 								}
 							}
+
 
 							table += '</table>';
 							return table;
