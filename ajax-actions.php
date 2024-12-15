@@ -26,6 +26,10 @@ add_action(
 					'callback'       => 'coursh_bulk_print_qr',
 					'logged_in_only' => false, // Set to false for both.
 				);
+				$events['insert_shipment_tracking'] = array(
+					'callback'       => 'insert_shipment_tracking',
+					'logged_in_only' => false, // Set to false for both.
+				);
 				return $events;
 			}
 		);

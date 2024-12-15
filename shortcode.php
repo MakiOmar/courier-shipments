@@ -90,6 +90,46 @@ add_shortcode(
 				</div>
 			</div>
 		</div>
+		<form 
+			hx-post="<?php echo esc_url( admin_url( 'admin-ajax.php?action=insert_shipment_tracking' ) ); ?>" 
+			hx-trigger="submit" 
+			hx-target="#employee-actions" 
+			hx-indicator="#maglev-loading-indicator"
+			hx-swap="innerHTML"
+			style="display:none" 
+			id="employee-actions-form"
+			>
+			<!-- WP Nonce Field -->
+			<?php wp_nonce_field(); ?>
+
+			<!-- Shipment ID -->
+			<input type="number" id="shipment_id" name="shipment_id" required>
+
+			<!-- Employee ID -->
+
+			<input type="number" id="employee_id" name="employee_id" value="<?php echo esc_attr( get_current_user_id() ); ?>" required>
+
+			<!-- Status -->
+			<label for="status"><?php esc_html_e( 'Status:', 'coursh' ); ?></label>
+			<select id="status" name="status" required>
+				<option value="collected"><?php esc_html_e( 'Collected', 'coursh' ); ?></option>
+				<option value="packaged"><?php esc_html_e( 'Packaged', 'coursh' ); ?></option>
+				<option value="processing"><?php esc_html_e( 'Processing', 'coursh' ); ?></option>
+				<option value="shipped"><?php esc_html_e( 'Shipped', 'coursh' ); ?></option>
+				<option value="delivered"><?php esc_html_e( 'Delivered', 'coursh' ); ?></option>
+			</select>
+
+			<!-- Description -->
+			<label for="description"><?php esc_html_e( 'Notes:', 'coursh' ); ?></label>
+			<textarea id="description" name="description" rows="4"></textarea>
+
+			<!-- Submit Button -->
+			<button type="submit"><?php esc_html_e( 'Submit', 'coursh' ); ?></button>
+		</form>
+
+		<!-- Response Container -->
+		<div id="response"></div>
+
 		<script>
 			function startQrCodeScanner() {
 				document.getElementById("qr-reader").style.display = "block";

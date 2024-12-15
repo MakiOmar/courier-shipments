@@ -40,6 +40,8 @@ add_action(
 
 					// Check if the response contains success and data
 					if (jsonResponse.success && jsonResponse.data) {
+						let shipmentId = data['ID'];
+						console.log( shipmentId );
 						// Convert the data object into a table
 						const createTableHTML = (data) => {
 							let table = '<table style="width:100%; border-collapse:collapse;">';
@@ -53,6 +55,9 @@ add_action(
 										style= 'background-color:#f15f22;color:#fff';
 									} else {
 										style = ';'
+									}
+									if ( key === 'ID' ) {
+										continue;
 									}
 									table += `<tr>
 										<td style="padding:5px; border:1px solid #ddd;${style}">${key}</td>

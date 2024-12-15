@@ -60,3 +60,31 @@ function coursh_bulk_print_qr() {
 
 	wp_send_json_success( $shipments_data );
 }
+
+/**
+ * AJAX callback to insert a shipment tracking record.
+ */
+function ajax_insert_shipment_tracking() {
+	// Verify the nonce for security
+	check_ajax_referer();
+
+	// Retrieve and sanitize input data
+	$shipment_id = isset( $_POST['shipment_id'] ) ? intval( $_POST['shipment_id'] ) : null;
+	$employee_id = isset( $_POST['employee_id'] ) ? intval( $_POST['employee_id'] ) : null;
+	$status      = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : '';
+	$description = isset( $_POST['description'] ) ? sanitize_textarea_field( $_POST['description'] ) : '';
+
+	// Validate required fields
+	if ( empty( $shipment_id ) || empty( $employee_id ) || empty( $status ) ) {
+		wp_send_json_error( array( 'message' => esc_html__( 'Required fields are missing.', 'coursh' ) ) );
+	}
+
+	// Use the helper function to insert the record
+	$result = insert_shipment_tracking_record( $shipment_id, $employee_id, $status, $description );
+
+	if ( is_wp_error( $result ) ) {
+		wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+	}
+
+	wp_send_json_success( array( 'message' => esc_html__( 'Record inserted successfully.', 'coursh' ) ) );
+}
