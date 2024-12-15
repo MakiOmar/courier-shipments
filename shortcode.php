@@ -90,8 +90,7 @@ add_shortcode(
 				</div>
 			</div>
 		</div>
-		<form 
-			class="d-none" 
+		<form
 			id="employee-actions-form"
 			hx-post="<?php echo esc_url( admin_url( 'admin-ajax.php?action=insert_shipment_tracking' ) ); ?>" 
 			hx-trigger="submit" 
