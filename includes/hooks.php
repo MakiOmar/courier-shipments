@@ -49,7 +49,8 @@ add_action(
 								alert('<?php esc_html_e( 'Please select shipment', 'coursh' ) ?>');
 								return;
 							}
-
+							console.log(shipmentsIds);
+							return;
 							// AJAX request to fetch shipment details
 							$.ajax({
 								url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',

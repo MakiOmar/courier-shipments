@@ -38,24 +38,25 @@ function courier_ajax_search_tracking_number() {
 // Handle bulk action with AJAX
 
 function coursh_bulk_print_qr() {
-	if (!current_user_can('administrator') ) {
-        wp_send_json_error(array('message' => esc_html( 'Forbidden!', 'coursh' )));
-        return;
-    }
-    $shipment_ids = isset($_POST['shipment_ids']) ? array_map('intval', $_POST['shipment_ids']) : array();
+	if ( ! current_user_can( 'administrator' ) ) {
+		wp_send_json_error( array( 'message' => esc_html( 'Forbidden!', 'coursh' ) ) );
+		return;
+	}
+	$shipment_ids = isset( $_POST['shipment_ids'] ) ? array_map( 'intval', $_POST['shipment_ids'] ) : array();
 
-    if (empty($shipment_ids)) {
-        wp_send_json_error(array('message' => 'لم يتم تحديد أي طلبات.'));
-    }
+	if ( empty( $shipment_ids ) ) {
+		wp_send_json_error( array( 'message' => 'لم يتم تحديد أي طلبات.' ) );
+	}
 
-    $shipments_data = array();
-    foreach ($shipment_ids as $shipment_id) {
-        $shipment = wc_get_shipment($shipment_id);
-        if (!$shipment) continue;
+	$shipments_data = array();
+	foreach ( $shipment_ids as $shipment_id ) {
+		$shipment = courier_search_by_id( $shipment_id );
+		if ( ! $shipment ) {
+			continue;
+		}
 
-        $shipments_data[] = array(
-        );
-    }
+		$shipments_data[] = array();
+	}
 
-    wp_send_json_success($orders_data);
+	wp_send_json_success( $orders_data );
 }
