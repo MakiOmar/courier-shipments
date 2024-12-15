@@ -44,33 +44,49 @@ add_action(
 
 						// Convert the data object into a table
 						const createTableHTML = (data) => {
-							console.log(data);
-							let table = '<table style="width:100%; border-collapse:collapse;">';
-							table += '<tr><th style="text-align:left; padding:5px; border:1px solid #ddd;">Key</th><th style="text-align:left; padding:5px; border:1px solid #ddd;">Value</th></tr>';
+    // Check if 'tracking_info' exists and is an array
+    if (Array.isArray(data.tracking_info) && data.tracking_info.length > 0) {
+        // Get the headers from the keys of the first object
+        const headers = Object.keys(data.tracking_info[0]).filter(key => key !== 'id');
 
-							for (const key in data) {
-								if (Object.prototype.hasOwnProperty.call(data, key)) {
-									// Build the table row with the formatted key and its value
-									var style;
-									if ( key === 'Tracking number' ) {
-										style= 'background-color:#f15f22;color:#fff';
-									} else {
-										style = ';'
-									}
-									if ( key === 'ID' ) {
-										continue;
-									}
-									table += `<tr>
-										<td style="padding:5px; border:1px solid #ddd;${style}">${key}</td>
-										<td style="padding:5px; border:1px solid #ddd;${style}">${data[key]}</td>
-									</tr>`;
-								}
-							}
+        // Start building the table with dynamic headers
+        let table = `
+            <table style="width:100%; border-collapse:collapse;">
+                <tr>
+                    ${headers.map(header => `
+                        <th style="text-align:left; padding:5px; border:1px solid #ddd;">
+                            ${header.replace('_', ' ').toUpperCase()}
+                        </th>
+                    `).join('')}
+                </tr>
+        `;
 
+        // Iterate over each tracking entry
+        data.tracking_info.forEach((item) => {
+            table += `
+                <tr>
+                    ${headers.map(header => {
+                        // Apply special styling if the header is 'status'
+                        const style = header === 'status' ? 'background-color:#f15f22; color:#fff;' : '';
+                        return `
+                            <td style="padding:5px; border:1px solid #ddd; ${style}">
+                                ${item[header]}
+                            </td>
+                        `;
+                    }).join('')}
+                </tr>
+            `;
+        });
 
-							table += '</table>';
-							return table;
-						};
+        // Close the table
+        table += '</table>';
+        return table;
+    } else {
+        // Handle cases where 'tracking_info' is not available or empty
+        return '<p>No tracking information available.</p>';
+    }
+};
+
 
 						// Show the SweetAlert2 popup
 						swal.fire({
