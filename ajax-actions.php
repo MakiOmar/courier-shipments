@@ -21,6 +21,11 @@ add_action(
 					'callback'       => 'courier_ajax_search_tracking_number',
 					'logged_in_only' => false, // Set to false for both.
 				);
+
+				$events['coursh_bulk_print_qr'] = array(
+					'callback'       => 'coursh_bulk_print_qr',
+					'logged_in_only' => false, // Set to false for both.
+				);
 				return $events;
 			}
 		);
