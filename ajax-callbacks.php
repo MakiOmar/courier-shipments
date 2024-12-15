@@ -60,31 +60,80 @@ function coursh_bulk_print_qr() {
 
 	wp_send_json_success( $shipments_data );
 }
-
 /**
- * AJAX callback to insert a shipment tracking record.
+ * AJAX callback to insert or update a shipment tracking record.
  */
 function ajax_insert_shipment_tracking() {
-	// Verify the nonce for security
+	// Verify the nonce for security.
 	check_ajax_referer();
 
-	// Retrieve and sanitize input data
+	// Retrieve and sanitize input data.
 	$shipment_id = isset( $_POST['shipment_id'] ) ? intval( $_POST['shipment_id'] ) : null;
 	$employee_id = get_current_user_id();
 	$status      = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : '';
 	$description = isset( $_POST['description'] ) ? sanitize_textarea_field( $_POST['description'] ) : '';
 
-	// Validate required fields
+	// Validate required fields.
 	if ( empty( $shipment_id ) || empty( $employee_id ) || empty( $status ) ) {
-		wp_send_json_error( array( 'message' => esc_html__( 'Required fields are missing.', 'coursh' ) ) );
+		wp_send_json_error(
+			array( 'message' => esc_html__( 'Required fields are missing.', 'coursh' ) )
+		);
 	}
 
-	// Use the helper function to insert the record
-	$result = insert_shipment_tracking_record( $shipment_id, $employee_id, $status, $description );
+	// Check if a record already exists with the given shipment_id and status.
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'shipment_tracking'; // Replace with your actual table name.
 
-	if ( is_wp_error( $result ) ) {
-		wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+	$existing_record = $wpdb->get_row(
+		$wpdb->prepare(
+			"SELECT id FROM $table_name WHERE shipment_id = %d AND status = %s",
+			$shipment_id,
+			$status
+		)
+	);
+	error_log( print_r( $existing_record, true ) );
+	if ( $existing_record ) {
+		// Update the description if the record exists.
+		$updated = $wpdb->update(
+			$table_name,
+			array( 'description' => $description ), // Fields to update.
+			array( 'id' => $existing_record->id ), // WHERE clause.
+			array( '%s' ), // Value format.
+			array( '%d' ) // Where format.
+		);
+
+		if ( false === $updated ) {
+			wp_send_json_error(
+				array( 'message' => esc_html__( 'Failed to update the record.', 'coursh' ) )
+			);
+		}
+
+		wp_send_json_success(
+			array( 'message' => esc_html__( 'Record updated successfully.', 'coursh' ) )
+		);
+	} else {
+		// Insert a new record if it doesn't exist.
+		$inserted = $wpdb->insert(
+			$table_name,
+			array(
+				'shipment_id' => $shipment_id,
+				'employee_id' => $employee_id,
+				'status'      => $status,
+				'description' => $description,
+				'created_at'  => current_time( 'mysql' ),
+			),
+			array( '%d', '%d', '%s', '%s', '%s' )
+		);
+
+		if ( false === $inserted ) {
+			wp_send_json_error(
+				array( 'message' => esc_html__( 'Failed to insert the record.', 'coursh' ) )
+			);
+		}
+
+		wp_send_json_success(
+			array( 'message' => esc_html__( 'Record inserted successfully.', 'coursh' ) )
+		);
 	}
-
-	wp_send_json_success( array( 'message' => esc_html__( 'Record inserted successfully.', 'coursh' ) ) );
 }
+add_action( 'wp_ajax_insert_shipment_tracking', 'ajax_insert_shipment_tracking' );
