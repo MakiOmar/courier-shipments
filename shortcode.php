@@ -91,41 +91,53 @@ add_shortcode(
 			</div>
 		</div>
 		<form 
+			class="d-none" 
+			id="employee-actions-form"
 			hx-post="<?php echo esc_url( admin_url( 'admin-ajax.php?action=insert_shipment_tracking' ) ); ?>" 
 			hx-trigger="submit" 
 			hx-target="#employee-actions" 
 			hx-indicator="#maglev-loading-indicator"
 			hx-swap="innerHTML"
-			style="display:none" 
-			id="employee-actions-form"
-			>
+		>
 			<!-- WP Nonce Field -->
 			<?php wp_nonce_field(); ?>
 
-			<!-- Shipment ID -->
-			<input type="number" id="shipment_id" name="shipment_id" required>
+			<div class="mb-3">
+				<!-- Shipment ID -->
+				<label for="shipment_id" class="form-label"><?php esc_html_e( 'Shipment ID:', 'coursh' ); ?></label>
+				<input type="number" id="shipment_id" name="shipment_id" class="form-control" required>
+			</div>
 
-			<!-- Employee ID -->
+			<div class="mb-3">
+				<!-- Employee ID -->
+				<label for="employee_id" class="form-label"><?php esc_html_e( 'Employee ID:', 'coursh' ); ?></label>
+				<input type="number" id="employee_id" name="employee_id" value="<?php echo esc_attr( get_current_user_id() ); ?>" class="form-control" required readonly>
+			</div>
 
-			<input type="number" id="employee_id" name="employee_id" value="<?php echo esc_attr( get_current_user_id() ); ?>" required>
+			<div class="mb-3">
+				<!-- Status -->
+				<label for="status" class="form-label"><?php esc_html_e( 'Status:', 'coursh' ); ?></label>
+				<select id="status" name="status" class="form-select" required>
+					<option value="collected"><?php esc_html_e( 'Collected', 'coursh' ); ?></option>
+					<option value="packaged"><?php esc_html_e( 'Packaged', 'coursh' ); ?></option>
+					<option value="processing"><?php esc_html_e( 'Processing', 'coursh' ); ?></option>
+					<option value="shipped"><?php esc_html_e( 'Shipped', 'coursh' ); ?></option>
+					<option value="delivered"><?php esc_html_e( 'Delivered', 'coursh' ); ?></option>
+				</select>
+			</div>
 
-			<!-- Status -->
-			<label for="status"><?php esc_html_e( 'Status:', 'coursh' ); ?></label>
-			<select id="status" name="status" required>
-				<option value="collected"><?php esc_html_e( 'Collected', 'coursh' ); ?></option>
-				<option value="packaged"><?php esc_html_e( 'Packaged', 'coursh' ); ?></option>
-				<option value="processing"><?php esc_html_e( 'Processing', 'coursh' ); ?></option>
-				<option value="shipped"><?php esc_html_e( 'Shipped', 'coursh' ); ?></option>
-				<option value="delivered"><?php esc_html_e( 'Delivered', 'coursh' ); ?></option>
-			</select>
+			<div class="mb-3">
+				<!-- Description -->
+				<label for="description" class="form-label"><?php esc_html_e( 'Notes:', 'coursh' ); ?></label>
+				<textarea id="description" name="description" class="form-control" rows="4"></textarea>
+			</div>
 
-			<!-- Description -->
-			<label for="description"><?php esc_html_e( 'Notes:', 'coursh' ); ?></label>
-			<textarea id="description" name="description" rows="4"></textarea>
-
-			<!-- Submit Button -->
-			<button type="submit"><?php esc_html_e( 'Submit', 'coursh' ); ?></button>
+			<div class="text-end">
+				<!-- Submit Button -->
+				<button type="submit" class="btn btn-primary"><?php esc_html_e( 'Submit', 'coursh' ); ?></button>
+			</div>
 		</form>
+
 
 		<!-- Response Container -->
 		<div id="employee-actions"></div>
