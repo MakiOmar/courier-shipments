@@ -23,9 +23,9 @@ add_shortcode(
 		?>
 	<div id="tracking-container" style="display:flex;justify-content:center">
 		<!-- HTMX Form -->
-		<form 
-			hx-post="<?php echo esc_url( admin_url( 'admin-ajax.php?action=search_tracking_number' ) ); ?>" 
-			hx-target="#tracking-result" 
+		<form
+			hx-post="<?php echo esc_url( admin_url( 'admin-ajax.php?action=get_tracking_details' ) ); ?>" 
+			hx-target="#client-tracking-details" 
 			hx-indicator="#maglev-loading-indicator" 
 			style="display: flex; justify-content: center; align-items: center;"
 		>
@@ -51,7 +51,7 @@ add_shortcode(
 		</form>
 
 		<!-- Result Container -->
-		<div id="tracking-result" style="display:none"></div>
+		<div id="client-tracking-details" style="display:none"></div>
 	</div>
 
 		<?php

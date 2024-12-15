@@ -136,4 +136,29 @@ function ajax_insert_shipment_tracking() {
 		);
 	}
 }
-add_action( 'wp_ajax_insert_shipment_tracking', 'ajax_insert_shipment_tracking' );
+
+/**
+ * AJAX handler to get tracking details.
+ */
+function get_tracking_details_ajax() {
+    // Check for the tracking number in the request.
+    $tracking_number = isset($_POST['tracking_number']) ? sanitize_text_field($_POST['tracking_number']) : '';
+
+    if (empty($tracking_number)) {
+        wp_send_json_error(['message' => 'Tracking number is required.']);
+        wp_die();
+    }
+
+    // Call the tracking_details function.
+    $tracking_info = tracking_details($tracking_number);
+
+    if (!empty($tracking_info)) {
+        // Send success response.
+        wp_send_json_success(['tracking_info' => $tracking_info]);
+    } else {
+        // Send error response.
+        wp_send_json_error(['message' => 'No tracking details found for the given tracking number.']);
+    }
+
+    wp_die(); // Ensure the request is terminated properly.
+}
