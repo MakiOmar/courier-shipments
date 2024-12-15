@@ -115,7 +115,7 @@ add_action(
 				if (form && form.hasAttribute('hx-post') && form.getAttribute('hx-target') === '#employee-actions' ) {
 					// Get the response
 					const response = event.detail.xhr.responseText;
-
+					console.log(response);
 					// Parse the JSON response
 					let jsonResponse;
 					try {

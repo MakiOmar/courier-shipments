@@ -132,7 +132,7 @@ add_shortcode(
 
 
 		<!-- Response Container -->
-		<div id="employee-actions"></div>
+		<div id="employee-actions" style="display:none"></div>
 
 		<script>
 			function startQrCodeScanner() {
