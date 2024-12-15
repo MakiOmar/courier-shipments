@@ -47,8 +47,9 @@ add_action(
 
 							for (const key in data) {
 								if (data.hasOwnProperty(key)) {
+									const formattedKey = key.replace(/^cct_/, '').replace(/^./, str => str.toUpperCase());
 									table += `<tr>
-										<td style="padding:5px; border:1px solid #ddd;">${key}</td>
+										<td style="padding:5px; border:1px solid #ddd;">${formattedKey}</td>
 										<td style="padding:5px; border:1px solid #ddd;">${data[key]}</td>
 									</tr>`;
 								}
