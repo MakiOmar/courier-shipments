@@ -137,15 +137,15 @@ add_action(
 					if (jsonResponse.success && jsonResponse.data) {
 						// Show the SweetAlert2 popup
 						swal.fire({
-							title: "<?php esc_html_e( 'Error', 'coursh' ); ?>",
-							html: createTableHTML(jsonResponse.data),
+							title: "<?php esc_html_e( 'Success', 'coursh' ); ?>",
+							text: "<?php esc_html_e( 'Tracking has been inserted', 'coursh' ); ?>",
 							icon: "info",
 							width: '600px',
 							showCloseButton: true,
 							allowOutsideClick: false,
 							allowEscapeKey: false,
 							showCancelButton: true, // Optional: adds Cancel button
-							confirmButtonText: "<?php esc_html_e( 'Insert tracking', 'coursh' ); ?>",
+							confirmButtonText: "<?php esc_html_e( 'Ok', 'coursh' ); ?>",
 						})
 					}
 				}
