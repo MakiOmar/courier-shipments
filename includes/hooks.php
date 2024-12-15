@@ -21,7 +21,7 @@ add_action(
 	'admin_footer',
 	function ( $hook ) {
 
-		if ( ! empty( $_GET['page'] && 'jet-cct-shipment' === $_GET['page'] ) ) {
+		if ( isset( $_GET['page'] ) && ! empty( $_GET['page'] && 'jet-cct-shipment' === $_GET['page'] ) ) {
 			?>
 			<script>
 				function printQr( data ) {
