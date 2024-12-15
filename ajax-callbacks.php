@@ -38,7 +38,7 @@ function courier_ajax_search_tracking_number() {
 // Handle bulk action with AJAX.
 
 function coursh_bulk_print_qr() {
-	if ( ! current_user_can( 'administrator' ) ) {
+	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_send_json_error( array( 'message' => esc_html( 'Forbidden!', 'coursh' ) ) );
 		return;
 	}
