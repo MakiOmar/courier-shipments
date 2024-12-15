@@ -35,7 +35,7 @@ function courier_ajax_search_tracking_number() {
 }
 
 
-// Handle bulk action with AJAX
+// Handle bulk action with AJAX.
 
 function coursh_bulk_print_qr() {
 	if ( ! current_user_can( 'administrator' ) ) {
@@ -45,7 +45,7 @@ function coursh_bulk_print_qr() {
 	$shipment_ids = isset( $_POST['shipment_ids'] ) ? array_map( 'intval', $_POST['shipment_ids'] ) : array();
 
 	if ( empty( $shipment_ids ) ) {
-		wp_send_json_error( array( 'message' => esc_html__( 'No shipment is selected', 'coursh' )  ) );
+		wp_send_json_error( array( 'message' => esc_html__( 'No shipment is selected', 'coursh' ) ) );
 	}
 
 	$shipments_data = array();
@@ -55,7 +55,7 @@ function coursh_bulk_print_qr() {
 			continue;
 		}
 
-		$shipments_data[] = array();
+		$shipments_data[] = $shipment;
 	}
 
 	wp_send_json_success( $shipments_data );
