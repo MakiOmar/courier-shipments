@@ -32,7 +32,7 @@ add_action(
 						printContent += '<div style="page-break-after: always;display:flex;flex-direction:column; align-items: center; justify-content:center; direction: rtl; margin: 0 auto;">' +
 							'<img src="<?php echo COURSH_LOGO; ?>" alt="Logo" style="max-width: 150px; margin-bottom: 10px; display: inline-block;">' +
 							'<table style="width: auto; margin: 0 auto; border-collapse: collapse;font-size:15px">' +
-								'<tr><td style="text-align: right;padding: 10px 0;min-width:75px"><strong>' + '<?php esc_html__( 'Description', 'coursh' ); ?>' + ': </strong></td><td style="text-align: right;">' + shipment.contentdescription + '</td></tr>' +
+								'<tr><td style="text-align: right;padding: 10px 0;min-width:75px"><strong>' + '<?php esc_html_e( 'Description', 'coursh' ); ?>' + ': </strong></td><td style="text-align: right;">' + shipment.contentdescription + '</td></tr>' +
 							'</table>' +
 							'<div style="margin-top: 10px;">' +
 								'<img src="https://api.qrserver.com/v1/create-qr-code/?data=' + trackingNumber + '&size=80x80" alt="QR Code for shipment ID" style="display: block; max-width: 150px; margin: 0 auto;">' +
