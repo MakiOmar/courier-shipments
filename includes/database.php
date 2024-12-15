@@ -51,7 +51,7 @@ require_once SNKS_DIR . 'includes/transaction-table.php';
 */
 register_activation_hook(
 	__FILE__,
-	function plgin_activation_hook() {
+	function () {
 		create_shipment_tracking_table();
 	}
 );
