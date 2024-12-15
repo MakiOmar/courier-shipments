@@ -40,7 +40,7 @@ add_action(
 
 					// Check if the response contains success and data
 					if (jsonResponse.success && jsonResponse.data) {
-						let shipmentId = data['ID'];
+						let shipmentId = jsonResponse.data['ID'];
 						console.log( shipmentId );
 						// Convert the data object into a table
 						const createTableHTML = (data) => {
