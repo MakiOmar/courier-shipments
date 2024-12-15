@@ -153,7 +153,6 @@ function get_tracking_details_ajax() {
 	$tracking_info = tracking_details( $tracking_number );
 
 	if ( ! empty( $tracking_info ) ) {
-		unset( $tracking_info->id );
 		// Send success response.
 		wp_send_json_success( array( 'tracking_info' => $tracking_info ) );
 	} else {
