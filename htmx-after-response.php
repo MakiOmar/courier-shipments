@@ -54,7 +54,7 @@ add_action(
 									<table style="width:100%; border-collapse:collapse;">
 										<tr>
 											${headers.map(header => `
-												<th style="text-align:left; padding:5px; border:1px solid #ddd;">
+												<th style="text-align:left; padding:5px; border:1px solid #ddd;font-size:16px">
 													${header.replace('_', ' ').toUpperCase()}
 												</th>
 											`).join('')}
