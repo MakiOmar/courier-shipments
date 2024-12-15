@@ -79,6 +79,8 @@ add_shortcode(
 							<button type="button" class="btn btn-secondary mb-3" onclick="startQrCodeScanner()"><?php esc_html_e( 'Scan QR', 'coursh' ); ?></button>
 							<div id="qr-reader" style="width: 100%; display: none;"></div>
 						</div>
+						<!-- WP Nonce Field -->
+						<?php wp_nonce_field(); ?>
 						<div class="text-center">
 							<button type="submit" class="btn" style="background-color:#361347;color:#fff"><?php esc_html_e( 'Get details', 'coursh' ); ?></button>
 						</div>
