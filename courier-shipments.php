@@ -47,7 +47,7 @@ define( 'COURSH_LOGO', get_theme_mods_child_key( 'jupiterx_logo_secondary' ) );
  */
 function coursh_init() {
 	// Load text domain for translations.
-	load_plugin_textdomain( 'my-basic-plugin', false, dirname( COURSH_BASENAME ) . '/languages' );
+	load_plugin_textdomain( 'coursh', false, dirname( COURSH_BASENAME ) . '/languages' );
 
 	// Additional initialization logic here.
 }
