@@ -29,8 +29,8 @@ add_action(
 					var printContent = '<div style="font-family: Arial; padding: 20px;">';
 					data.forEach(function(shipment) {
 						let trackingNumber = shipment.tracking_number;
-						console.log(trackingNumber);
-						printContent += '<div style="page-break-after: always;display:flex;flex-direction:column; align-items: center; justify-content:center; direction: rtl; margin: 0 auto;">'
+						printContent += '<div style="page-break-after: always;display:flex;flex-direction:column; align-items: center; justify-content:center; direction: rtl; margin: 0 auto;">' +
+							'<img src="" alt="Logo" style="max-width: 150px; margin-bottom: 10px; display: inline-block;">' +
 							'<table style="width: auto; margin: 0 auto; border-collapse: collapse;font-size:15px">' +
 								'<tr><td style="text-align: right;padding: 10px 0;min-width:75px"><strong>' + '<?php esc_html__('Description', 'coursh'); ?>' + ': </strong></td><td style="text-align: right;">' + shipment.billing_name + '</td></tr>' +
 							'</table>' +
