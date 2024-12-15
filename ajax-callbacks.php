@@ -70,7 +70,7 @@ function ajax_insert_shipment_tracking() {
 
 	// Retrieve and sanitize input data
 	$shipment_id = isset( $_POST['shipment_id'] ) ? intval( $_POST['shipment_id'] ) : null;
-	$employee_id = isset( $_POST['employee_id'] ) ? intval( $_POST['employee_id'] ) : null;
+	$employee_id = get_current_user_id();
 	$status      = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : '';
 	$description = isset( $_POST['description'] ) ? sanitize_textarea_field( $_POST['description'] ) : '';
 

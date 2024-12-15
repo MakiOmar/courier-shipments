@@ -104,16 +104,8 @@ add_shortcode(
 
 			<div class="mb-3">
 				<!-- Shipment ID -->
-				<label for="shipment_id" class="form-label"><?php esc_html_e( 'Shipment ID:', 'coursh' ); ?></label>
-				<input type="number" id="shipment_id" name="shipment_id" class="form-control" required>
+				<input type="number" id="shipment_id" name="shipment_id" class="form-control d-none" required>
 			</div>
-
-			<div class="mb-3">
-				<!-- Employee ID -->
-				<label for="employee_id" class="form-label"><?php esc_html_e( 'Employee ID:', 'coursh' ); ?></label>
-				<input type="number" id="employee_id" name="employee_id" value="<?php echo esc_attr( get_current_user_id() ); ?>" class="form-control" required readonly>
-			</div>
-
 			<div class="mb-3">
 				<!-- Status -->
 				<label for="status" class="form-label"><?php esc_html_e( 'Status:', 'coursh' ); ?></label>
