@@ -38,7 +38,7 @@ require_once COURSH_PATH . 'shortcode.php';
 require_once COURSH_PATH . 'htmx-after-response.php';
 
 $child_theme_options = get_options( 'theme_mods_jupiterx-child' );
-$logo                = is_array( $child_theme_options ) ? $child_theme_options['jupiterx_logo_seconda'] : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgZmlsbD0ibGlnaHRibHVlIiAvPgo8L3N2Zz4=';
+$logo                = is_array( $child_theme_options ) ? $child_theme_options['jupiterx_logo_secondary'] : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgZmlsbD0ibGlnaHRibHVlIiAvPgo8L3N2Zz4=';
 
 define( 'COURSH_LOGO', $logo );
 /**
