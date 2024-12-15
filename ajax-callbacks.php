@@ -22,7 +22,7 @@ function courier_ajax_search_tracking_number() {
 	$tracking_number = isset( $req['tracking_number'] ) ? sanitize_text_field( $req['tracking_number'] ) : '';
 	check_ajax_referer();
 	if ( empty( $tracking_number ) ) {
-		wp_send_json_error( array( 'message' => 'Tracking number is required.' ) );
+		wp_send_json_error( array( 'message' => esc_html__( 'Tracking number is required.', 'coursh' ) ) );
 	}
 
 	// Search for the shipment.
@@ -30,7 +30,7 @@ function courier_ajax_search_tracking_number() {
 	if ( $shipment ) {
 		wp_send_json_success( $shipment );
 	} else {
-		wp_send_json_error( array( 'message' => 'No shipment found for this tracking number.' ) );
+		wp_send_json_error( array( 'message' => esc_html__( 'No shipment found for this tracking number.', 'coursh' ) ) );
 	}
 }
 
@@ -45,7 +45,7 @@ function coursh_bulk_print_qr() {
 	$shipment_ids = isset( $_POST['shipment_ids'] ) ? array_map( 'intval', $_POST['shipment_ids'] ) : array();
 
 	if ( empty( $shipment_ids ) ) {
-		wp_send_json_error( array( 'message' => 'لم يتم تحديد أي طلبات.' ) );
+		wp_send_json_error( array( 'message' => esc_html__( 'No shipment is selected', 'coursh' )  ) );
 	}
 
 	$shipments_data = array();
@@ -58,5 +58,5 @@ function coursh_bulk_print_qr() {
 		$shipments_data[] = array();
 	}
 
-	wp_send_json_success( $orders_data );
+	wp_send_json_success( $shipments_data );
 }

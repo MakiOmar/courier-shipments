@@ -46,11 +46,9 @@ add_action(
 							});
 
 							if (shipmentsIds.length === 0) {
-								alert('<?php esc_html_e( 'Please select shipment', 'coursh' ) ?>');
+								alert('<?php esc_html_e( 'Please select shipment', 'coursh' ); ?>');
 								return;
 							}
-							console.log(shipmentsIds);
-							return;
 							// AJAX request to fetch shipment details
 							$.ajax({
 								url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
@@ -61,13 +59,13 @@ add_action(
 								},
 								success: function(response) {
 									if (response.success) {
-										
+										console.log(response.data);
 									} else {
-										alert('<?php esc_html_e( 'Faild to fetch shipments details', 'coursh' ) ?>');
+										alert('<?php esc_html_e( 'Faild to fetch shipments details', 'coursh' ); ?>');
 									}
 								},
 								error: function() {
-									alert('<?php esc_html_e( 'Something wrong happend', 'coursh' ) ?>');
+									alert('<?php esc_html_e( 'Something wrong happend', 'coursh' ); ?>');
 								}
 							});
 						}
