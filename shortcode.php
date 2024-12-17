@@ -75,7 +75,7 @@ add_shortcode(
 					>
 						<div class="mb-3">
 							<label for="tracking_number" class="form-label"><?php esc_html_e( 'Tracking number', 'coursh' ); ?></label>
-							<input type="text" class="form-control" id="tracking_number" name="tracking_number" required readonly>
+							<input type="text" class="form-control" id="tracking_number" name="tracking_number" required>
 							<button type="button" class="btn btn-secondary mb-3" onclick="startQrCodeScanner()"><?php esc_html_e( 'Scan QR', 'coursh' ); ?></button>
 							<div id="qr-reader" style="width: 100%; display: none;"></div>
 						</div>
