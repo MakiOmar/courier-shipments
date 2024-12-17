@@ -16,10 +16,10 @@ add_action(
 			// Listen to the htmx:afterRequest event
 			document.body.addEventListener('htmx:afterRequest', (event) => {
 				// Check if the request came from the specific form
-				const form = event.detail.requestConfig.triggeringEvent.target;
+				var form = event.detail.requestConfig.triggeringEvent.target;
 				if (form && form.hasAttribute('hx-post') && form.getAttribute('hx-target') === '#client-tracking-details' ) {
 					// Get the response
-					const response = event.detail.xhr.responseText;
+					let response = event.detail.xhr.responseText;
 
 					// Parse the JSON response
 					let jsonResponse;
@@ -37,7 +37,6 @@ add_action(
 						});
 						return;
 					}
-
 					// Check if the response contains success and data
 					if (jsonResponse.success && jsonResponse.data) {
 						let shipmentId = jsonResponse.data['ID'];
@@ -105,7 +104,7 @@ add_action(
 						// Handle unsuccessful response
 						swal.fire({
 							title: "<?php esc_html_e( 'Error', 'coursh' ); ?>",
-							text: jsonResponse.message || "<?php esc_html_e( 'Sorry! No available data.', 'coursh' ); ?>",
+							text: jsonResponse.data.message || "<?php esc_html_e( 'Sorry! No available data.', 'coursh' ); ?>",
 							icon: "error",
 							showCloseButton: true,
 							allowOutsideClick: false,
@@ -116,7 +115,7 @@ add_action(
 				
 				if (form && form.hasAttribute('hx-post') && form.getAttribute('hx-target') === '#tracking-result' ) {
 					// Get the response
-					const response = event.detail.xhr.responseText;
+					let response = event.detail.xhr.responseText;
 
 					// Parse the JSON response
 					let jsonResponse;
@@ -211,8 +210,7 @@ add_action(
 
 				if (form && form.hasAttribute('hx-post') && form.getAttribute('hx-target') === '#employee-actions' ) {
 					// Get the response
-					const response = event.detail.xhr.responseText;
-					console.log(response);
+					let response = event.detail.xhr.responseText;
 					// Parse the JSON response
 					let jsonResponse;
 					try {
@@ -244,6 +242,14 @@ add_action(
 							confirmButtonText: "<?php esc_html_e( 'Ok', 'coursh' ); ?>",
 						})
 					}
+				}
+			});
+
+			document.body.addEventListener('htmx:beforeRequest', (event) => {
+				var form = event.detail.requestConfig.triggeringEvent.target;
+				if (form && form.hasAttribute('hx-post') && form.getAttribute('hx-target') === '#tracking-result' ) {
+					$("#employee-actions-form").hide();
+					$("#employee-actions-form")[0].reset();
 				}
 			});
 		</script>
