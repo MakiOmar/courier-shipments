@@ -19,9 +19,9 @@ add_action(
 
 add_action(
 	'admin_footer',
-	function ( $hook ) {
+	function () {
 
-		if ( isset( $_GET['page'] ) && ! empty( $_GET['page'] && 'jet-cct-shipments' === $_GET['page'] ) ) {
+		if ( isset( $_GET['page'] ) && ! empty( $_GET['page'] && 'shipment-management' === $_GET['page'] ) ) {
 			?>
 			<script>
 				function printQr(data) {
@@ -155,23 +155,19 @@ add_action(
 
 
 				jQuery(document).ready(function ($) {
-					// Check if the bulk action selector exists
-					const bulkActionSelector = $('#bulk-action-selector-top');
-					
-					if (bulkActionSelector.length) {
-						// Append the new option
-						bulkActionSelector.append('<option value="bulk_print_qr">Bulk Print QR Code</option>');
-					}
+					$('#checkall-shipments').on('change', function() {
+						// Check or uncheck all checkboxes based on the state of #checkall-shipments
+						$('.shipment-item').prop('checked', $(this).is(':checked'));
+					});
 
-					$('#doaction, #doaction2').on('click', function(e) {
-						var action = $(this).attr('id') === 'doaction' ? $('#bulk-action-selector-top').val() : $('#bulk-action-selector-bottom').val();
-
-						if (action === 'bulk_print_qr') {
+					$('#print-waybill').on(
+						'click',
+						function( e ) {
 							e.preventDefault();
 
 							// Get selected shipment IDs
 							var shipmentsIds = [];
-							$('tbody th.check-column input[type="checkbox"]:checked').each(function() {
+							$('#shipments-management .shipment-item:checked').each(function() {
 								shipmentsIds.push($(this).val());
 							});
 
@@ -199,7 +195,7 @@ add_action(
 								}
 							});
 						}
-					});
+					);
 				});
 
 			</script>
