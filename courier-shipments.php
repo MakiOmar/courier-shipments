@@ -37,6 +37,7 @@ require_once COURSH_PATH . 'includes/salary-management.php';
 require_once COURSH_PATH . 'includes/salary-transactions.php';
 require_once COURSH_PATH . 'includes/salary-transactions-history.php';
 require_once COURSH_PATH . 'includes/salary-net.php';
+require_once COURSH_PATH . 'includes/shipments.php';
 require_once COURSH_PATH . 'includes/hooks.php';
 require_once COURSH_PATH . 'ajax-actions.php';
 require_once COURSH_PATH . 'ajax-callbacks.php';
