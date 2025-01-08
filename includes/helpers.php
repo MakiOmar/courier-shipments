@@ -115,7 +115,29 @@ function get_theme_mods_child_key( $key ) {
 	// Check if the key exists in the unserialized array and return its value.
 	return isset( $option_data[ $key ] ) ? $option_data[ $key ] : '';
 }
+/**
+ * Insert tracking number
+ *
+ * @param int|string $id Shipment ID.
+ * @return void
+ */
+function snks_generate_tracking_number( $id ) {
+	// Format the tracking number to exactly 11 digits.
+	$tr = format_to_eleven_digits( $id );
 
+	// Use wp_query_builder() to perform the database operation.
+	$builder = wp_query_builder();
+
+	try {
+		$builder->from( 'jet_cct_shipments' )
+				->set( array( 'tracking_number' => $tr ) )
+				->where( array( '_ID' => $id ) )
+				->update();
+	} catch ( Exception $e ) {
+		// Log any errors for debugging purposes.
+		debug_log( 'Error updating tracking number: ' . $e->getMessage() );
+	}
+}
 /**
  * Get tracking details using a tracking number.
  *
@@ -132,7 +154,7 @@ function tracking_details( $tracking_number ) {
 
 	try {
 		// Define table names.
-		$shipment_table = $wpdb->prefix . 'jet_cct_shipment';
+		$shipment_table = $wpdb->prefix . 'jet_cct_shipments';
 		$tracking_table = $wpdb->prefix . 'shipment_tracking';
 
 		// Build and execute the query.
@@ -164,7 +186,7 @@ function tracking_details( $tracking_number ) {
 /**
  * Search for a shipment by tracking number.
  *
- * This function queries the `jet_cct_shipment` table for a shipment
+ * This function queries the `jet_cct_shipments` table for a shipment
  * matching the given tracking number.
  *
  * @param string $tracking_number The tracking number to search for.
@@ -177,7 +199,7 @@ function courier_search_tracking_number( $tracking_number ) {
 	// Build the query using wp_query_builder().
 	$builder = wp_query_builder()
 		->select( '*' )
-		->from( 'jet_cct_shipment' )
+		->from( 'jet_cct_shipments' )
 		->where(
 			array(
 				'tracking_number' => $tracking_number,
@@ -224,7 +246,7 @@ function courier_search_tracking_number( $tracking_number ) {
 /**
  * Search for a shipment by its ID.
  *
- * This function queries the `jet_cct_shipment` table for a shipment
+ * This function queries the `jet_cct_shipments` table for a shipment
  * matching the given ID.
  *
  * @param int|string $_ID The ID to search for.
@@ -237,7 +259,7 @@ function courier_search_by_id( $_ID ) {
 	// Build the query using wp_query_builder().
 	$builder = wp_query_builder()
 		->select( '*' )
-		->from( 'jet_cct_shipment' )
+		->from( 'jet_cct_shipments' )
 		->where(
 			array(
 				'_ID' => $_ID,

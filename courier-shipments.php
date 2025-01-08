@@ -136,22 +136,8 @@ add_action(
 	'jet-form-builder/custom-action/after_insert_cct',
 	function ( $request ) {
 		// Check if the inserted CCT shipment ID is provided.
-		if ( ! empty( $request['inserted_cct_shipment'] ) ) {
-			// Format the tracking number to exactly 11 digits.
-			$tr = format_to_eleven_digits( $request['inserted_cct_shipment'] );
-
-			// Use wp_query_builder() to perform the database operation.
-			$builder = wp_query_builder();
-
-			try {
-				$builder->from( 'jet_cct_shipment' )
-						->set( array( 'tracking_number' => $tr ) )
-						->where( array( '_ID' => $request['inserted_cct_shipment'] ) )
-						->update();
-			} catch ( Exception $e ) {
-				// Log any errors for debugging purposes.
-				debug_log( 'Error updating tracking number: ' . $e->getMessage() );
-			}
+		if ( ! empty( $request['inserted_cct_shipments'] ) ) {
+			snks_generate_tracking_number( $request['inserted_cct_shipments'] );
 		} else {
 			debug_log( 'No CCT Shipment ID provided.' );
 		}
