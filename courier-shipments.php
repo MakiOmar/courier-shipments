@@ -30,8 +30,10 @@ define( 'COURSH_URL', plugin_dir_url( __FILE__ ) );
 define( 'COURSH_BASENAME', plugin_basename( __FILE__ ) );
 
 require_once COURSH_PATH . 'vendor/autoload.php';
+require_once COURSH_PATH . 'autoload.php';
 require_once COURSH_PATH . 'includes/database.php';
 require_once COURSH_PATH . 'includes/helpers.php';
+require_once COURSH_PATH . 'includes/salary-management.php';
 require_once COURSH_PATH . 'includes/hooks.php';
 require_once COURSH_PATH . 'ajax-actions.php';
 require_once COURSH_PATH . 'ajax-callbacks.php';
@@ -49,6 +51,7 @@ register_activation_hook(
 	__FILE__,
 	function () {
 		create_shipment_tracking_table();
+		create_salary_management_tables();
 	}
 );
 
