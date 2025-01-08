@@ -91,7 +91,6 @@ function ajax_insert_shipment_tracking() {
 			$status
 		)
 	);
-	error_log( print_r( $existing_record, true ) );
 	if ( $existing_record ) {
 		// Update the description if the record exists.
 		$updated = $wpdb->update(
@@ -151,7 +150,6 @@ function get_tracking_details_ajax() {
 
 	// Call the tracking_details function.
 	$tracking_info = tracking_details( $tracking_number );
-
 	if ( ! empty( $tracking_info ) ) {
 		// Send success response.
 		wp_send_json_success( array( 'tracking_info' => $tracking_info ) );
