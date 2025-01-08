@@ -1,11 +1,11 @@
 <?php
 /**
- * Define custom AJAX calbacks.
+ * Define custom AJAX callbacks.
  *
- * This file defines and registers AJAX actions' calbacks
+ * This file defines and registers AJAX actions' callbacks
  * using the `maglev_ajax_actions` filter.
  *
- * @package WordPress Maglev
+ * @package WordPress_Maglev
  */
 
 // Exit if accessed directly.
@@ -18,9 +18,12 @@ defined( 'ABSPATH' ) || exit;
  */
 function courier_ajax_search_tracking_number() {
 	$req = wp_unslash( $_POST );
+
 	// Validate and sanitize the tracking number.
 	$tracking_number = isset( $req['tracking_number'] ) ? sanitize_text_field( $req['tracking_number'] ) : '';
+
 	check_ajax_referer();
+
 	if ( empty( $tracking_number ) ) {
 		wp_send_json_error( array( 'message' => esc_html__( 'Tracking number is required.', 'coursh' ) ) );
 	}
@@ -34,18 +37,21 @@ function courier_ajax_search_tracking_number() {
 	}
 }
 
-
-// Handle bulk action with AJAX.
-
+/**
+ * Handle bulk action with AJAX.
+ *
+ * @return void Outputs JSON results or an error message.
+ */
 function coursh_bulk_print_qr() {
 	if ( ! current_user_can( 'manage_options' ) ) {
-		wp_send_json_error( array( 'message' => esc_html( 'Forbidden!', 'coursh' ) ) );
+		wp_send_json_error( array( 'message' => esc_html__( 'Forbidden!', 'coursh' ) ) );
 		return;
 	}
+
 	$shipment_ids = isset( $_POST['shipment_ids'] ) ? array_map( 'intval', $_POST['shipment_ids'] ) : array();
 
 	if ( empty( $shipment_ids ) ) {
-		wp_send_json_error( array( 'message' => esc_html__( 'No shipment is selected', 'coursh' ) ) );
+		wp_send_json_error( array( 'message' => esc_html__( 'No shipment is selected.', 'coursh' ) ) );
 	}
 
 	$shipments_data = array();
@@ -54,14 +60,16 @@ function coursh_bulk_print_qr() {
 		if ( ! $shipment ) {
 			continue;
 		}
-
 		$shipments_data[] = $shipment;
 	}
 
 	wp_send_json_success( $shipments_data );
 }
+
 /**
  * AJAX callback to insert or update a shipment tracking record.
+ *
+ * @return void Outputs JSON results or an error message.
  */
 function ajax_insert_shipment_tracking() {
 	// Verify the nonce for security.
@@ -75,9 +83,7 @@ function ajax_insert_shipment_tracking() {
 
 	// Validate required fields.
 	if ( empty( $shipment_id ) || empty( $employee_id ) || empty( $status ) ) {
-		wp_send_json_error(
-			array( 'message' => esc_html__( 'Required fields are missing.', 'coursh' ) )
-		);
+		wp_send_json_error( array( 'message' => esc_html__( 'Required fields are missing.', 'coursh' ) ) );
 	}
 
 	// Check if a record already exists with the given shipment_id and status.
@@ -91,25 +97,22 @@ function ajax_insert_shipment_tracking() {
 			$status
 		)
 	);
+
 	if ( $existing_record ) {
 		// Update the description if the record exists.
 		$updated = $wpdb->update(
 			$table_name,
 			array( 'description' => $description ), // Fields to update.
-			array( 'id' => $existing_record->id ), // WHERE clause.
+			array( 'id' => $existing_record->id ),  // WHERE clause.
 			array( '%s' ), // Value format.
-			array( '%d' ) // Where format.
+			array( '%d' )  // Where format.
 		);
 
 		if ( false === $updated ) {
-			wp_send_json_error(
-				array( 'message' => esc_html__( 'Failed to update the record.', 'coursh' ) )
-			);
+			wp_send_json_error( array( 'message' => esc_html__( 'Failed to update the record.', 'coursh' ) ) );
 		}
 
-		wp_send_json_success(
-			array( 'message' => esc_html__( 'Record updated successfully.', 'coursh' ) )
-		);
+		wp_send_json_success( array( 'message' => esc_html__( 'Record updated successfully.', 'coursh' ) ) );
 	} else {
 		// Insert a new record if it doesn't exist.
 		$inserted = $wpdb->insert(
@@ -125,26 +128,24 @@ function ajax_insert_shipment_tracking() {
 		);
 
 		if ( false === $inserted ) {
-			wp_send_json_error(
-				array( 'message' => esc_html__( 'Failed to insert the record.', 'coursh' ) )
-			);
+			wp_send_json_error( array( 'message' => esc_html__( 'Failed to insert the record.', 'coursh' ) ) );
 		}
 
-		wp_send_json_success(
-			array( 'message' => esc_html__( 'Record inserted successfully.', 'coursh' ) )
-		);
+		wp_send_json_success( array( 'message' => esc_html__( 'Record inserted successfully.', 'coursh' ) ) );
 	}
 }
 
 /**
  * AJAX handler to get tracking details.
+ *
+ * @return void Outputs JSON results or an error message.
  */
 function get_tracking_details_ajax() {
 	// Check for the tracking number in the request.
 	$tracking_number = isset( $_POST['tracking_number'] ) ? sanitize_text_field( $_POST['tracking_number'] ) : '';
 
 	if ( empty( $tracking_number ) ) {
-		wp_send_json_error( array( 'message' => 'Tracking number is required.' ) );
+		wp_send_json_error( array( 'message' => esc_html__( 'Tracking number is required.', 'coursh' ) ) );
 		wp_die();
 	}
 
@@ -155,8 +156,8 @@ function get_tracking_details_ajax() {
 		wp_send_json_success( array( 'tracking_info' => $tracking_info ) );
 	} else {
 		// Send error response.
-		wp_send_json_error( array( 'message' => 'No tracking details found for the given tracking number.' ) );
+		wp_send_json_error( array( 'message' => esc_html__( 'No tracking details found for the given tracking number.', 'coursh' ) ) );
 	}
 
-	die(); // Ensure the request is terminated properly.
+	wp_die(); // Ensure the request is terminated properly.
 }
