@@ -13,7 +13,6 @@ class SalaryTransaction extends Model {
 		'transaction_type',
 		'amount',
 		'description',
-		'transaction_date',
 	);
 
 	/**

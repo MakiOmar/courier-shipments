@@ -27,6 +27,7 @@ function create_shipment_tracking_table() {
             status ENUM('collected', 'packaged', 'processing', 'shipped', 'delivered') NOT NULL,
             description TEXT,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             FOREIGN KEY (shipment_id) REFERENCES {$wpdb->prefix}jet_cct_shipments(_ID) ON DELETE CASCADE ON UPDATE CASCADE,
             FOREIGN KEY (employee_id) REFERENCES {$wpdb->prefix}users(ID) ON DELETE CASCADE ON UPDATE CASCADE
         ) $charset_collate;
@@ -69,7 +70,8 @@ function create_salary_management_tables() {
         transaction_type ENUM('bonus', 'advance', 'deduction') NOT NULL,
         amount DECIMAL(10, 2) NOT NULL,
         description TEXT,
-        transaction_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (salary_id) REFERENCES {$salaries_table}(id) ON DELETE CASCADE ON UPDATE CASCADE
     ) $charset_collate;";
 
@@ -78,7 +80,8 @@ function create_salary_management_tables() {
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
         salary_id BIGINT UNSIGNED NOT NULL,
         payment_amount DECIMAL(10, 2) NOT NULL,
-        payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         description TEXT,
         FOREIGN KEY (salary_id) REFERENCES {$salaries_table}(id) ON DELETE CASCADE ON UPDATE CASCADE
     ) $charset_collate;";

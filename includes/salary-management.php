@@ -100,10 +100,3 @@ function render_salary_management_page() {
 	<?php
 }
 
-add_action(
-	'admin_init',
-	function () {
-		SalaryController::setSalary();
-		SalaryController::deleteSalary();
-	}
-);

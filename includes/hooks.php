@@ -207,3 +207,14 @@ add_action(
 		}
 	}
 );
+
+
+
+add_action(
+	'admin_init',
+	function () {
+		SalaryController::setSalary();
+		SalaryController::deleteSalary();
+		SalaryTransactionsController::create();
+	}
+);

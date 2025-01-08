@@ -11,7 +11,6 @@ class SalaryPayment extends Model {
 	protected $fillable = array(
 		'salary_id',
 		'payment_amount',
-		'payment_date',
 		'description',
 	);
 
