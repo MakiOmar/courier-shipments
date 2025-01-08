@@ -13,37 +13,30 @@ function add_salary_transactions_page() {
 	);
 }
 
-
 function render_salary_transactions_page() {
+	$users = get_users(); // Fetch all WordPress users
 
-	// Fetch all salary transactions using the SalaryTransaction model
-	$transactions = SalaryTransaction::with( 'salary.user' )->orderBy( 'created_at', 'desc' )->get();
+	// Fetch only the latest transaction for each user with a salary
+	$latestTransactions = SalaryTransaction::with( array( 'salary.user' ) )
+		->select( 'salary_id', 'transaction_type', 'amount', 'description', 'created_at' )
+		->orderBy( 'created_at', 'desc' )
+		->get()
+		->unique( 'salary_id' ); // Ensures we only keep the latest transaction per user
 
 	?>
 	<div class="wrap">
-		<h1>Salary Transactions</h1>
+		<h1>Salary Management</h1>
 
-		<?php if ( isset( $message ) ) : ?>
-			<div class="notice notice-success is-dismissible">
-				<p><?php echo $message; ?></p>
-			</div>
-		<?php elseif ( isset( $error ) ) : ?>
-			<div class="notice notice-error is-dismissible">
-				<p><?php echo $error; ?></p>
-			</div>
-		<?php endif; ?>
-
-		<!-- Add Transaction Form -->
-		<h2>Add Transaction</h2>
+		<!-- Form to Add/Set Salary -->
 		<form method="POST" action="">
-			<?php wp_nonce_field( 'add_transaction_action' ); ?>
+			<?php wp_nonce_field( 'set_salary_action', 'set_salary_nonce' ); ?>
 			<table class="form-table">
 				<tr>
-					<th scope="row"><label for="user_id">User</label></th>
+					<th scope="row"><label for="user_id">Select User</label></th>
 					<td>
 						<select name="user_id" id="user_id" required>
 							<option value="">Select a User</option>
-							<?php foreach ( get_users() as $user ) : ?>
+							<?php foreach ( $users as $user ) : ?>
 								<option value="<?php echo $user->ID; ?>">
 									<?php echo esc_html( $user->display_name . ' (' . $user->user_email . ')' ); ?>
 								</option>
@@ -52,61 +45,49 @@ function render_salary_transactions_page() {
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><label for="transaction_type">Transaction Type</label></th>
+					<th scope="row"><label for="base_salary">Base Salary</label></th>
 					<td>
-						<select name="transaction_type" id="transaction_type" required>
-							<option value="">Select a Type</option>
-							<option value="bonus">Bonus</option>
-							<option value="advance">Advance</option>
-							<option value="deduction">Deduction</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="amount">Amount</label></th>
-					<td>
-						<input type="number" step="0.01" name="amount" id="amount" required>
-					</td>
-				</tr>
-				<tr>
-					<th scope="row"><label for="description">Description</label></th>
-					<td>
-						<textarea name="description" id="description" rows="3"></textarea>
+						<input type="number" step="0.01" name="base_salary" id="base_salary" required>
 					</td>
 				</tr>
 			</table>
 			<p class="submit">
-				<button type="submit" name="add_transaction" class="button button-primary">Add Transaction</button>
+				<button type="submit" name="set_salary" class="button button-primary">Set Salary</button>
 			</p>
 		</form>
 
-		<!-- Transactions Table -->
-		<h2>Existing Transactions</h2>
+		<!-- Latest Salary Transactions Table -->
+		<h2>Users with Latest Transactions</h2>
 		<table class="wp-list-table widefat fixed striped table-view-list">
 			<thead>
 				<tr>
-					<th>User</th>
+					<th>User Name</th>
+					<th>Email</th>
 					<th>Transaction Type</th>
 					<th>Amount</th>
 					<th>Description</th>
 					<th>Date</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php if ( $transactions->isEmpty() ) : ?>
+				<?php if ( $latestTransactions->isEmpty() ) : ?>
 					<tr>
-						<td colspan="5">No transactions found.</td>
+						<td colspan="7">No transactions found.</td>
 					</tr>
 				<?php else : ?>
-					<?php foreach ( $transactions as $transaction ) : ?>
+					<?php foreach ( $latestTransactions as $transaction ) : ?>
 						<tr>
-							<td>
-								<?php echo esc_html( $transaction->salary->user->display_name ); ?>
-							</td>
+							<td><?php echo esc_html( $transaction->salary->user->display_name ); ?></td>
+							<td><?php echo esc_html( $transaction->salary->user->user_email ); ?></td>
 							<td><?php echo ucfirst( $transaction->transaction_type ); ?></td>
 							<td><?php echo number_format( $transaction->amount, 2 ); ?></td>
 							<td><?php echo esc_html( $transaction->description ); ?></td>
 							<td><?php echo esc_html( $transaction->created_at ); ?></td>
+							<td>
+								<!-- Button for Transaction History -->
+								<a href="<?php echo admin_url( 'admin.php?page=transaction-history&user_id=' . $transaction->salary->user->ID ); ?>" class="button">Transaction History</a>
+							</td>
 						</tr>
 					<?php endforeach; ?>
 				<?php endif; ?>
