@@ -71,7 +71,7 @@ function coursh_init() {
 
 	// Additional initialization logic here.
 }
-add_action( 'init', 'coursh_init' );
+add_action( 'plugins_loaded', 'coursh_init' );
 
 /**
  * Enqueue plugin scripts and styles.
@@ -153,6 +153,15 @@ add_action(
 			snks_generate_tracking_number( $request['inserted_cct_shipments'] );
 		} else {
 			debug_log( 'No CCT Shipment ID provided.' );
+		}
+	}
+);
+add_action(
+	'admin_init',
+	function () {
+		if ( isset( $_GET['page'] ) && 'jet-cct-shipments' === $_GET['page'] ) {
+			wp_redirect( admin_url( 'admin.php?page=shipment-management' ) );
+			exit;
 		}
 	}
 );
