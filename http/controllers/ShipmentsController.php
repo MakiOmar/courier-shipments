@@ -26,54 +26,39 @@ class ShipmentsController {
 			wp_send_json_error( array( 'message' => esc_html__( 'Required fields are missing.', 'coursh' ) ) );
 		}
 
-		// Check if a record already exists with the given shipment_id and status.
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'shipment_tracking'; // Replace with your actual table name.
+		try {
+			// Check if a record already exists with the given shipment_id and status.
+			$existing_record = ShipmentTracking::where( 'shipment_id', $shipment_id )
+			->where( 'status', $status )
+			->first();
 
-		$existing_record = $wpdb->get_row(
-			$wpdb->prepare(
-				"SELECT id FROM $table_name WHERE shipment_id = %d AND status = %s",
-				$shipment_id,
-				$status
-			)
-		);
+			if ( $existing_record ) {
+				// Update the description if the record exists.
+				$existing_record->description = $description;
+				$existing_record->save();
 
-		if ( $existing_record ) {
-			// Update the description if the record exists.
-			$updated = $wpdb->update(
-				$table_name,
-				array( 'description' => $description ), // Fields to update.
-				array( 'id' => $existing_record->id ),  // WHERE clause.
-				array( '%s' ), // Value format.
-				array( '%d' )  // Where format.
-			);
+				wp_send_json_success( array( 'message' => esc_html__( 'Record updated successfully.', 'coursh' ) ) );
+			} else {
+				// Insert a new record if it doesn't exist.
+				ShipmentTracking::create(
+					array(
+						'shipment_id' => $shipment_id,
+						'employee_id' => $employee_id,
+						'status'      => $status,
+						'description' => $description,
+						'created_at'  => now(),
+					)
+				);
 
-			if ( false === $updated ) {
-					wp_send_json_error( array( 'message' => esc_html__( 'Failed to update the record.', 'coursh' ) ) );
+				wp_send_json_success( array( 'message' => esc_html__( 'Record inserted successfully.', 'coursh' ) ) );
 			}
-
-			wp_send_json_success( array( 'message' => esc_html__( 'Record updated successfully.', 'coursh' ) ) );
-		} else {
-			// Insert a new record if it doesn't exist.
-			$inserted = $wpdb->insert(
-				$table_name,
-				array(
-					'shipment_id' => $shipment_id,
-					'employee_id' => $employee_id,
-					'status'      => $status,
-					'description' => $description,
-					'created_at'  => current_time( 'mysql' ),
-				),
-				array( '%d', '%d', '%s', '%s', '%s' )
-			);
-
-			if ( false === $inserted ) {
-				wp_send_json_error( array( 'message' => esc_html__( 'Failed to insert the record.', 'coursh' ) ) );
-			}
-
-			wp_send_json_success( array( 'message' => esc_html__( 'Record inserted successfully.', 'coursh' ) ) );
+		} catch ( Exception $e ) {
+			// Handle exceptions gracefully.
+			error_log( 'Error in shipment tracking insertion: ' . $e->getMessage() );
+			wp_send_json_error( array( 'message' => esc_html__( 'An error occurred while processing your request.', 'coursh' ) ) );
 		}
 	}
+
 	/**
 	 * AJAX callback for searching a tracking number.
 	 *
