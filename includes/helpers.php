@@ -28,47 +28,6 @@ function load_view( $view, $data = array() ) {
 		echo '<p>Error: View file not found.</p>';
 	}
 }
-/**
- * Helper function to insert a record into the shipment_tracking table.
- *
- * @param int    $shipment_id The shipment ID (foreign key).
- * @param int    $employee_id The employee ID (foreign key).
- * @param string $status The shipment status (collected, packaged, processing, shipped, delivered).
- * @param string $description Optional description of the shipment.
- * @return bool|WP_Error True on success, or WP_Error on failure.
- */
-function insert_shipment_tracking_record( $shipment_id, $employee_id, $status, $description = '' ) {
-	global $wpdb;
-
-	// Validate the status value
-	$allowed_statuses = array( 'collected', 'packaged', 'processing', 'shipped', 'delivered' );
-	if ( ! in_array( $status, $allowed_statuses, true ) ) {
-		return new WP_Error( 'invalid_status', 'Invalid shipment status.' );
-	}
-
-	// Prepare the data to insert
-	$data = array(
-		'shipment_id' => intval( $shipment_id ),
-		'employee_id' => intval( $employee_id ),
-		'status'      => sanitize_text_field( $status ),
-		'description' => sanitize_textarea_field( $description ),
-		'created_at'  => current_time( 'mysql' ), // Current timestamp
-	);
-
-	// Insert the data into the shipment_tracking table
-	$result = $wpdb->insert(
-		$wpdb->prefix . 'shipment_tracking', // Table name
-		$data, // Data to insert
-		array( '%d', '%d', '%s', '%s', '%s' ) // Data format
-	);
-
-	// Check if the insert was successful
-	if ( $result === false ) {
-		return new WP_Error( 'db_error', 'Failed to insert record into shipment_tracking table.' );
-	}
-
-	return true;
-}
 
 /**
  * Get the full name of a WordPress user by their ID.
