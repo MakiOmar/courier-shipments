@@ -165,3 +165,11 @@ add_action(
 		}
 	}
 );
+
+add_action(
+	'wp_logout',
+	function () {
+		wp_safe_redirect( home_url() );
+		exit();
+	}
+);
