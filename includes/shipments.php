@@ -13,8 +13,6 @@ function add_shipment_management_page() {
 	);
 }
 function render_shipment_management_page() {
-	global $wpdb;
-
 	// Fetch filter values
 	$selected_user = isset( $_GET['user_id'] ) ? intval( $_GET['user_id'] ) : '';
 	$from_date     = isset( $_GET['from_date'] ) ? sanitize_text_field( $_GET['from_date'] ) : '';

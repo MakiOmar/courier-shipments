@@ -16,7 +16,6 @@ function add_salary_management_page() {
 }
 
 function render_salary_management_page() {
-	global $wpdb;
 	$users = get_users(); // Fetch all WordPress users
 	// Fetch all users who have a salary
 	$salaries = Salary::with( 'user' )->get(); // Fetch salaries with user relationships
