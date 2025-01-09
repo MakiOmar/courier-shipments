@@ -79,7 +79,7 @@ class ShipmentsController {
 	 *
 	 * @return void Outputs JSON results or an error message.
 	 */
-	public function courier_ajax_search_tracking_number() {
+	public static function courier_ajax_search_tracking_number() {
 		$req = wp_unslash( $_POST );
 
 		// Validate and sanitize the tracking number.
@@ -159,6 +159,35 @@ class ShipmentsController {
 
 		return null;
 	}
+
+	/**
+	 * Get tracking details using a tracking number.
+	 *
+	 * @param string $tracking_number The tracking number to search for.
+	 * @return array|null The tracking details or null if not found.
+	 */
+	public static function tracking_details( $tracking_number ) {
+		// Ensure the tracking number is provided.
+		if ( empty( $tracking_number ) ) {
+			return null;
+		}
+
+		try {
+			// Query the Shipment model using the tracking number.
+			$shipment = Shipment::with( 'trackingDetails' )
+				->where( 'tracking_number', $tracking_number )
+				->first();
+
+			// Check if shipment exists and return its tracking details.
+			return $shipment ? $shipment->trackingDetails->toArray() : null;
+
+		} catch ( Exception $e ) {
+			// Handle exceptions gracefully.
+			error_log( 'Error fetching tracking details: ' . $e->getMessage() );
+			return null;
+		}
+	}
+
 	/**
 	 * AJAX handler to get tracking details.
 	 *
@@ -174,7 +203,7 @@ class ShipmentsController {
 		}
 
 		// Call the tracking_details function.
-		$tracking_info = tracking_details( $tracking_number );
+		$tracking_info = self::tracking_details( $tracking_number );
 		if ( ! empty( $tracking_info ) ) {
 			ob_start();
 			load_view(

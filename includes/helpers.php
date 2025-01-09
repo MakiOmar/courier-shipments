@@ -158,50 +158,6 @@ function snks_generate_tracking_number( $id ) {
 		debug_log( 'Error updating tracking number: ' . $e->getMessage() );
 	}
 }
-/**
- * Get tracking details using a tracking number.
- *
- * @param string $tracking_number The tracking number to search for.
- * @return array|null The tracking details or null if not found.
- */
-function tracking_details( $tracking_number ) {
-	global $wpdb;
-
-	// Ensure the tracking number is provided.
-	if ( empty( $tracking_number ) ) {
-		return null;
-	}
-
-	try {
-		// Define table names.
-		$shipment_table = $wpdb->prefix . 'jet_cct_shipments';
-		$tracking_table = $wpdb->prefix . 'shipment_tracking';
-
-		// Build and execute the query.
-		$query = $wpdb->prepare(
-			"
-            SELECT st.*
-            FROM {$tracking_table} AS st
-            INNER JOIN {$shipment_table} AS s
-            ON st.shipment_id = s._ID
-            WHERE s.tracking_number = %s
-            ",
-			$tracking_number
-		);
-
-		// Fetch the results.
-		$results = $wpdb->get_results( $query, ARRAY_A );
-
-		// Return the results or null if empty.
-		return ! empty( $results ) ? $results : null;
-
-	} catch ( Exception $e ) {
-		// Handle exceptions gracefully.
-		error_log( 'Error fetching tracking details: ' . $e->getMessage() );
-		return null;
-	}
-}
-
 
 /**
  * Search for a shipment by tracking number.
