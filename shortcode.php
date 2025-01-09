@@ -187,7 +187,6 @@ function courier_search_shortcode( $atts ) {
 		$tracking_number = $_GET['number'];
 	}
 
-	// Call the courier_search_tracking_number function.
 	$trackings = tracking_details( $tracking_number );
 
 	// Check if a shipment was found.
