@@ -152,8 +152,17 @@ function get_tracking_details_ajax() {
 	// Call the tracking_details function.
 	$tracking_info = tracking_details( $tracking_number );
 	if ( ! empty( $tracking_info ) ) {
+		ob_start();
+		load_view(
+			'tracking',
+			array(
+				'trackings'       => $tracking_info,
+				'tracking_number' => $tracking_number,
+			)
+		);
+		$html = ob_get_clean();
 		// Send success response.
-		wp_send_json_success( array( 'tracking_info' => $tracking_info ) );
+		wp_send_json_success( array( 'html' => $html ) );
 	} else {
 		// Send error response.
 		wp_send_json_error( array( 'message' => esc_html__( 'No tracking details found for the given tracking number.', 'coursh' ) ) );
