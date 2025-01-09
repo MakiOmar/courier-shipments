@@ -213,7 +213,7 @@ class ShipmentsController {
 
 		$shipments_data = array();
 		foreach ( $shipment_ids as $shipment_id ) {
-			$shipment = courier_search_by_id( $shipment_id );
+			$shipment = self::courier_search_by_id( $shipment_id );
 			if ( ! $shipment ) {
 				continue;
 			}
@@ -221,5 +221,31 @@ class ShipmentsController {
 		}
 
 		wp_send_json_success( $shipments_data );
+	}
+
+	/**
+	 * Search for a shipment by its ID.
+	 *
+	 * This function queries the `jet_cct_shipments` table for a shipment
+	 * matching the given ID.
+	 *
+	 * @param int|string $_ID The ID to search for.
+	 * @return Shipment|null The matching shipment model instance, or null if not found.
+	 */
+	public static function courier_search_by_id( $_ID ) {
+		// Sanitize the ID to ensure it's a valid integer.
+		$_ID = intval( $_ID );
+
+		try {
+			// Use the Shipment model to find the shipment by ID.
+			$shipment = Shipment::find( $_ID );
+
+			// Return the shipment instance or null if not found.
+			return $shipment;
+		} catch ( Exception $e ) {
+			// Log any errors and return null.
+			error_log( 'Error searching for shipment by ID: ' . $e->getMessage() );
+			return null;
+		}
 	}
 }
