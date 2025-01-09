@@ -1,0 +1,299 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Courier shipments\n"
+"POT-Creation-Date: 2025-01-09 15:56+0200\n"
+"PO-Revision-Date: 2025-01-09 15:56+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: courier-shipments.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: htmx-after-response.php:31 htmx-after-response.php:60
+#: htmx-after-response.php:83 htmx-after-response.php:157
+msgid "Error"
+msgstr "خطأ"
+
+#: htmx-after-response.php:32 htmx-after-response.php:84
+msgid "An rrror occured"
+msgstr "حدث خطأ"
+
+#: htmx-after-response.php:37 htmx-after-response.php:53
+#: htmx-after-response.php:66
+msgid "OK"
+msgstr "موافق"
+
+#: htmx-after-response.php:38 htmx-after-response.php:54
+#: htmx-after-response.php:67
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: htmx-after-response.php:61 htmx-after-response.php:158
+msgid "Sorry! No available data."
+msgstr "عذرًا! لا توجد بيانات متاحة."
+
+#: htmx-after-response.php:128 shortcode.php:68
+msgid "Shipment details"
+msgstr "تفاصيل الشحنة"
+
+#: htmx-after-response.php:136
+msgid "Insert tracking"
+msgstr "إضافة تتبع"
+
+#: htmx-after-response.php:177
+msgid "Errors"
+msgstr "أخطاء"
+
+#: htmx-after-response.php:178
+msgid "An error occured"
+msgstr "حدث خطأ"
+
+#: htmx-after-response.php:191
+msgid "Success"
+msgstr "نجاح"
+
+#: htmx-after-response.php:192
+msgid "Tracking has been inserted"
+msgstr "تم إضافة التتبع"
+
+#: htmx-after-response.php:198
+msgid "Ok"
+msgstr "موافق"
+
+#: http/controllers/ShipmentsController.php:26
+msgid "Required fields are missing."
+msgstr "الحقول المطلوبة مفقودة."
+
+#: http/controllers/ShipmentsController.php:40
+msgid "Record updated successfully."
+msgstr "تم تحديث السجل بنجاح."
+
+#: http/controllers/ShipmentsController.php:53
+msgid "Record inserted successfully."
+msgstr "تم إدراج السجل بنجاح."
+
+#: http/controllers/ShipmentsController.php:58
+msgid "An error occurred while processing your request."
+msgstr "حدث خطأ أثناء معالجة طلبك."
+
+#: http/controllers/ShipmentsController.php:76
+#: http/controllers/ShipmentsController.php:166
+msgid "Tracking number is required."
+msgstr "رقم التتبع مطلوب."
+
+#: http/controllers/ShipmentsController.php:84
+msgid "No shipment found for this tracking number."
+msgstr "لم يتم العثور على شحنة لهذا الرقم."
+
+#: http/controllers/ShipmentsController.php:184
+msgid ""
+"Your shipment item has been created. Please wait for our agent to collect it."
+msgstr "تم إنشاء عنصر الشحنة الخاص بك. يرجى الانتظار حتى يقوم وكيلنا بجمعها."
+
+#: http/controllers/ShipmentsController.php:191
+msgid "No tracking details found for the given tracking number."
+msgstr "لم يتم العثور على تفاصيل التتبع للرقم المحدد."
+
+#: http/controllers/ShipmentsController.php:204
+msgid "Forbidden!"
+msgstr "ممنوع!"
+
+#: http/controllers/ShipmentsController.php:211
+msgid "No shipment is selected."
+msgstr "لم يتم اختيار أي شحنة."
+
+#: includes/hooks.php:71
+msgid "Please select shipment"
+msgstr "الرجاء اختيار الشحنة"
+
+#: includes/hooks.php:86
+msgid "Faild to fetch shipments details"
+msgstr "فشل في جلب تفاصيل الشحنات"
+
+#: includes/hooks.php:90
+msgid "Something wrong happend"
+msgstr "حدث شيء خاطئ"
+
+#: shortcode.php:37
+msgid "Enter tracking number"
+msgstr "أدخل رقم التتبع"
+
+#: shortcode.php:49
+msgid "Search"
+msgstr "بحث"
+
+#: shortcode.php:77
+msgid "Tracking number"
+msgstr "رقم التتبع"
+
+#: shortcode.php:79
+msgid "Scan QR"
+msgstr "مسح QR"
+
+#: shortcode.php:85
+msgid "Get details"
+msgstr "الحصول على التفاصيل"
+
+#: shortcode.php:111
+msgid "Status:"
+msgstr "الحالة:"
+
+#: shortcode.php:113 views/tracking.php:13
+msgid "Collected"
+msgstr "تم الجمع"
+
+#: shortcode.php:114 views/tracking.php:17
+msgid "Packaged"
+msgstr "تم التغليف"
+
+#: shortcode.php:115 views/tracking.php:29
+msgid "Processing"
+msgstr "قيد المعالجة"
+
+#: shortcode.php:116 views/tracking.php:21
+msgid "Shipped"
+msgstr "تم الشحن"
+
+#: shortcode.php:117 views/tracking.php:25
+msgid "Delivered"
+msgstr "تم التسليم"
+
+#: shortcode.php:123
+msgid "Notes:"
+msgstr "ملاحظات:"
+
+#: shortcode.php:129
+msgid "Submit"
+msgstr "إرسال"
+
+#: views/print.php:4
+msgid "WayBill"
+msgstr "فاتورة الشحن"
+
+#: views/print.php:9 views/print.php:18
+msgid "Logo"
+msgstr "الشعار"
+
+#: views/print.php:13
+msgid "QR Code for shipment ID"
+msgstr "رمز QR لمعرف الشحنة"
+
+#: views/print.php:25
+msgid "Sender Info"
+msgstr "معلومات المرسل"
+
+#: views/print.php:26
+msgid "Receiver Info"
+msgstr "معلومات المستلم"
+
+#: views/print.php:31
+msgid "Sender Name:"
+msgstr "اسم المرسل:"
+
+#: views/print.php:32
+msgid "Receiver Name:"
+msgstr "اسم المستلم:"
+
+#: views/print.php:35
+msgid "Sender Address:"
+msgstr "عنوان المرسل:"
+
+#: views/print.php:36
+msgid "Receiver Address:"
+msgstr "عنوان المستلم:"
+
+#: views/print.php:39 views/print.php:40
+msgid "Country:"
+msgstr "البلد:"
+
+#: views/print.php:43 views/print.php:44
+msgid "City:"
+msgstr "المدينة:"
+
+#: views/print.php:47 views/print.php:48
+msgid "Phone:"
+msgstr "الهاتف:"
+
+#: views/print.php:56
+msgid "Shipment Info"
+msgstr "معلومات الشحنة"
+
+#: views/print.php:57
+msgid "Payment Info"
+msgstr "معلومات الدفع"
+
+#: views/print.php:62
+msgid "Shipment Date:"
+msgstr "تاريخ الشحنة:"
+
+#: views/print.php:63
+msgid "Bill To:"
+msgstr "فاتورة إلى:"
+
+#: views/print.php:66
+msgid "Actual Weight:"
+msgstr "الوزن الفعلي:"
+
+#: views/print.php:67
+msgid "Cost:"
+msgstr "التكلفة:"
+
+#: views/print.php:70
+msgid "Contents:"
+msgstr "المحتويات:"
+
+#: views/print.php:71
+msgid "Total:"
+msgstr "الإجمالي:"
+
+#: views/print.php:77
+msgid "Terms & Conditions"
+msgstr "الشروط والأحكام"
+
+#: views/print.php:79
+msgid "Customer Signature"
+msgstr "توقيع العميل"
+
+#: views/print.php:80
+msgid "Signature"
+msgstr "التوقيع"
+
+#: views/tracking.php:33
+msgid "Cancelled"
+msgstr "تم الإلغاء"
+
+#. Plugin Name of the plugin/theme
+msgid "Courier shipments"
+msgstr "شحنات البريد السريع"
+
+#. Plugin URI of the plugin/theme
+msgid "https://example.com/my-basic-plugin"
+msgstr "https://example.com/my-basic-plugin"
+
+#. Description of the plugin/theme
+msgid "Courier shipments management."
+msgstr "إدارة شحنات البريد السريع."
+
+#. Author of the plugin/theme
+msgid "Mohammad Omar"
+msgstr "محمد عمر"
+
+#. Author URI of the plugin/theme
+msgid "https://makiomar.com"
+msgstr "https://makiomar.com"
+
+#~ msgid "Al Jawhara Company"
+#~ msgstr "شركة الجوهرة"

@@ -28,7 +28,7 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td style="border: 1px solid #000; text-align: <?php echo is_rtl() ? 'right' : 'left'; ?>; padding: 10px; font-size: 17px;"><strong><?php echo esc_html__( 'Sender Name:', 'coursh' ); ?></strong> <?php echo esc_html__( 'Al Jawhara Company', 'coursh' ); ?></td>
+				<td style="border: 1px solid #000; text-align: <?php echo is_rtl() ? 'right' : 'left'; ?>; padding: 10px; font-size: 17px;"><strong><?php echo esc_html__( 'Sender Name:', 'coursh' ); ?></strong> </td>
 				<td style="border: 1px solid #000; text-align: <?php echo is_rtl() ? 'right' : 'left'; ?>; padding: 10px; font-size: 17px;"><strong><?php echo esc_html__( 'Receiver Name:', 'coursh' ); ?></strong> <?php echo esc_html( $shipment->receivername ); ?></td>
 			</tr>
 			<tr>

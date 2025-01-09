@@ -1,0 +1,295 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Courier shipments\n"
+"POT-Creation-Date: 2025-01-09 15:56+0200\n"
+"PO-Revision-Date: 2025-01-09 15:41+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: courier-shipments.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: htmx-after-response.php:31 htmx-after-response.php:60
+#: htmx-after-response.php:83 htmx-after-response.php:157
+msgid "Error"
+msgstr ""
+
+#: htmx-after-response.php:32 htmx-after-response.php:84
+msgid "An rrror occured"
+msgstr ""
+
+#: htmx-after-response.php:37 htmx-after-response.php:53
+#: htmx-after-response.php:66
+msgid "OK"
+msgstr ""
+
+#: htmx-after-response.php:38 htmx-after-response.php:54
+#: htmx-after-response.php:67
+msgid "Cancel"
+msgstr ""
+
+#: htmx-after-response.php:61 htmx-after-response.php:158
+msgid "Sorry! No available data."
+msgstr ""
+
+#: htmx-after-response.php:128 shortcode.php:68
+msgid "Shipment details"
+msgstr ""
+
+#: htmx-after-response.php:136
+msgid "Insert tracking"
+msgstr ""
+
+#: htmx-after-response.php:177
+msgid "Errors"
+msgstr ""
+
+#: htmx-after-response.php:178
+msgid "An error occured"
+msgstr ""
+
+#: htmx-after-response.php:191
+msgid "Success"
+msgstr ""
+
+#: htmx-after-response.php:192
+msgid "Tracking has been inserted"
+msgstr ""
+
+#: htmx-after-response.php:198
+msgid "Ok"
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:26
+msgid "Required fields are missing."
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:40
+msgid "Record updated successfully."
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:53
+msgid "Record inserted successfully."
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:58
+msgid "An error occurred while processing your request."
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:76
+#: http/controllers/ShipmentsController.php:166
+msgid "Tracking number is required."
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:84
+msgid "No shipment found for this tracking number."
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:184
+msgid ""
+"Your shipment item has been created. Please wait for our agent to collect it."
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:191
+msgid "No tracking details found for the given tracking number."
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:204
+msgid "Forbidden!"
+msgstr ""
+
+#: http/controllers/ShipmentsController.php:211
+msgid "No shipment is selected."
+msgstr ""
+
+#: includes/hooks.php:71
+msgid "Please select shipment"
+msgstr ""
+
+#: includes/hooks.php:86
+msgid "Faild to fetch shipments details"
+msgstr ""
+
+#: includes/hooks.php:90
+msgid "Something wrong happend"
+msgstr ""
+
+#: shortcode.php:37
+msgid "Enter tracking number"
+msgstr ""
+
+#: shortcode.php:49
+msgid "Search"
+msgstr ""
+
+#: shortcode.php:77
+msgid "Tracking number"
+msgstr ""
+
+#: shortcode.php:79
+msgid "Scan QR"
+msgstr ""
+
+#: shortcode.php:85
+msgid "Get details"
+msgstr ""
+
+#: shortcode.php:111
+msgid "Status:"
+msgstr ""
+
+#: shortcode.php:113 views/tracking.php:13
+msgid "Collected"
+msgstr ""
+
+#: shortcode.php:114 views/tracking.php:17
+msgid "Packaged"
+msgstr ""
+
+#: shortcode.php:115 views/tracking.php:29
+msgid "Processing"
+msgstr ""
+
+#: shortcode.php:116 views/tracking.php:21
+msgid "Shipped"
+msgstr ""
+
+#: shortcode.php:117 views/tracking.php:25
+msgid "Delivered"
+msgstr ""
+
+#: shortcode.php:123
+msgid "Notes:"
+msgstr ""
+
+#: shortcode.php:129
+msgid "Submit"
+msgstr ""
+
+#: views/print.php:4
+msgid "WayBill"
+msgstr ""
+
+#: views/print.php:9 views/print.php:18
+msgid "Logo"
+msgstr ""
+
+#: views/print.php:13
+msgid "QR Code for shipment ID"
+msgstr ""
+
+#: views/print.php:25
+msgid "Sender Info"
+msgstr ""
+
+#: views/print.php:26
+msgid "Receiver Info"
+msgstr ""
+
+#: views/print.php:31
+msgid "Sender Name:"
+msgstr ""
+
+#: views/print.php:32
+msgid "Receiver Name:"
+msgstr ""
+
+#: views/print.php:35
+msgid "Sender Address:"
+msgstr ""
+
+#: views/print.php:36
+msgid "Receiver Address:"
+msgstr ""
+
+#: views/print.php:39 views/print.php:40
+msgid "Country:"
+msgstr ""
+
+#: views/print.php:43 views/print.php:44
+msgid "City:"
+msgstr ""
+
+#: views/print.php:47 views/print.php:48
+msgid "Phone:"
+msgstr ""
+
+#: views/print.php:56
+msgid "Shipment Info"
+msgstr ""
+
+#: views/print.php:57
+msgid "Payment Info"
+msgstr ""
+
+#: views/print.php:62
+msgid "Shipment Date:"
+msgstr ""
+
+#: views/print.php:63
+msgid "Bill To:"
+msgstr ""
+
+#: views/print.php:66
+msgid "Actual Weight:"
+msgstr ""
+
+#: views/print.php:67
+msgid "Cost:"
+msgstr ""
+
+#: views/print.php:70
+msgid "Contents:"
+msgstr ""
+
+#: views/print.php:71
+msgid "Total:"
+msgstr ""
+
+#: views/print.php:77
+msgid "Terms & Conditions"
+msgstr ""
+
+#: views/print.php:79
+msgid "Customer Signature"
+msgstr ""
+
+#: views/print.php:80
+msgid "Signature"
+msgstr ""
+
+#: views/tracking.php:33
+msgid "Cancelled"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Courier shipments"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://example.com/my-basic-plugin"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Courier shipments management."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Mohammad Omar"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://makiomar.com"
+msgstr ""
