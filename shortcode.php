@@ -51,7 +51,7 @@ add_shortcode(
 		</form>
 
 		<!-- Result Container -->
-		<div id="client-tracking-details" style="display:none"></div>
+		<div id="client-tracking-details" style="display:none" hx-no-swal="true"></div>
 	</div>
 
 		<?php
@@ -158,5 +158,51 @@ add_shortcode(
 		return ob_get_clean();
 	}
 );
+/**
+ * Shortcode to search for a shipment by tracking number.
+ *
+ * Usage: [track_shipment tracking_number="your_tracking_number"]
+ *
+ * @param array $atts Shortcode attributes.
+ * @return string HTML output of the shipment data or an error message.
+ */
+function courier_search_shortcode( $atts ) {
+	// Extract the shortcode attributes.
+	$atts = shortcode_atts(
+		array(
+			'tracking_number' => '',
+		),
+		$atts,
+		'track_shipment'
+	);
 
+	// Get the tracking number from the shortcode attributes.
+	$tracking_number = $atts['tracking_number'];
 
+	if ( empty( $tracking_number ) && empty( $_GET['number'] ) ) {
+		return '<p>Please provide a tracking number.</p>';
+	}
+
+	if ( empty( $tracking_number ) && ! empty( $_GET['number'] ) ) {
+		$tracking_number = $_GET['number'];
+	}
+
+	// Call the courier_search_tracking_number function.
+	$trackings = tracking_details( $tracking_number );
+
+	// Check if a shipment was found.
+	if ( $trackings ) {
+		ob_start();
+		load_view(
+			'tracking',
+			array(
+				'trackings'       => $trackings,
+				'tracking_number' => $tracking_number,
+			)
+		);
+		return ob_get_clean();
+	}
+
+	return '<p>No tracking details found for the given tracking number.</p>';
+}
+add_shortcode( 'track_shipment', 'courier_search_shortcode' );
