@@ -80,6 +80,13 @@ add_action( 'init', 'coursh_init' );
  * @return void
  */
 function coursh_enqueue_scripts() {
+	wp_enqueue_style(
+		'coursh',
+		plugin_dir_url( __FILE__ ) . 'style.css',
+		array(),
+		'1.0.0',
+		'all'
+	);
 }
 add_action( 'wp_enqueue_scripts', 'coursh_enqueue_scripts' );
 
