@@ -92,7 +92,7 @@ class ShipmentsController {
 		}
 
 		// Search for the shipment.
-		$shipment = $this->courier_search_tracking_number( $tracking_number );
+		$shipment = self::courier_search_tracking_number( $tracking_number );
 		if ( $shipment ) {
 			wp_send_json_success( $shipment );
 		} else {
@@ -101,64 +101,45 @@ class ShipmentsController {
 	}
 
 	/**
-	 * Search for a shipment by tracking number.
-	 *
-	 * This function queries the `jet_cct_shipments` table for a shipment
-	 * matching the given tracking number.
+	 * Search for a shipment by tracking number using the Shipment model.
 	 *
 	 * @param string $tracking_number The tracking number to search for.
 	 * @return array|null The matching shipment data, or null if not found.
 	 */
-	public function courier_search_tracking_number( $tracking_number ) {
-		// Sanitize the tracking number.
-		$tracking_number = sanitize_text_field( $tracking_number );
+	public static function courier_search_tracking_number( $tracking_number ) {
+		try {
+			// Query the Shipment model by tracking number.
+			$shipment = Shipment::where( 'tracking_number', $tracking_number )->first();
 
-		// Build the query using wp_query_builder().
-		$builder = wp_query_builder()
-			->select( '*' )
-			->from( 'jet_cct_shipments' )
-			->where(
-				array(
-					'tracking_number' => $tracking_number,
-				)
-			);
+			if ( $shipment ) {
+				// Get the author's full name.
+				$author_name = get_user_full_name( $shipment->cct_author_id );
 
-		// Execute the query and fetch the results.
-		$result = $builder->get();
-		if ( ! empty( $result ) ) {
+				// Prepare the result array.
+				return array(
+					'ID'               => $shipment->_ID,
+					'Tracking number'  => $shipment->tracking_number,
+					'Client name'      => $author_name,
+					'Receiver name'    => $shipment->receivername,
+					'Receiver address' => $shipment->receiveraddress,
+					'Receiver country' => $shipment->receivercountry,
+					'Receiver city'    => $shipment->receivercity,
+					'Receiver phone'   => $shipment->receiverphone,
+					'Total weight'     => $shipment->totalweight,
+					'Unit weight'      => $shipment->unitweight,
+					'Description'      => $shipment->contentdescription,
+					'Created at'       => $shipment->cct_created,
+				);
+			}
 
-			$_return = $result[0];
-
-			// Unset unwanted object properties.
-			unset( $_return->cct_status );
-			unset( $_return->terms );
-			unset( $_return->cct_modified );
-
-			// Get and replace the author property.
-			$author = $_return->cct_author_id;
-			unset( $_return->cct_author_id );
-
-			// Add the client name property.
-			$_return->client = get_user_full_name( $author );
-
-			return array(
-				'ID'              => $_return->_ID,
-				'Tracking number' => $_return->tracking_number,
-				'Client name'     => $_return->client,
-				'Receive rname'   => $_return->receivername,
-				'Receive Address' => $_return->receiveraddress,
-				'Receive country' => $_return->receivercountry,
-				'Receive city'    => $_return->receivercity,
-				'Receive phone'   => $_return->receiverphone,
-				'Total weight'    => $_return->totalweight,
-				'Unit weight'     => $_return->unitweight,
-				'Description'     => $_return->contentdescription,
-				'Created at'      => $_return->cct_created,
-			);
+			return null;
+		} catch ( Exception $e ) {
+			// Handle exceptions gracefully.
+			error_log( 'Error fetching shipment: ' . $e->getMessage() );
+			return null;
 		}
-
-		return null;
 	}
+
 
 	/**
 	 * Get tracking details using a tracking number.
