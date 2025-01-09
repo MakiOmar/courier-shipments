@@ -145,7 +145,7 @@ class ShipmentsController {
 	 * Get tracking details using a tracking number.
 	 *
 	 * @param string $tracking_number The tracking number to search for.
-	 * @return array|null The tracking details or null if not found.
+	 * @return object|null The tracking details or null if not found.
 	 */
 	public static function tracking_details( $tracking_number ) {
 		// Ensure the tracking number is provided.
@@ -159,8 +159,7 @@ class ShipmentsController {
 				->where( 'tracking_number', $tracking_number )
 				->first();
 
-			// Check if shipment exists and return its tracking details.
-			return $shipment ? $shipment->trackingDetails->toArray() : null;
+			return $shipment;
 
 		} catch ( Exception $e ) {
 			// Handle exceptions gracefully.
@@ -184,17 +183,22 @@ class ShipmentsController {
 		}
 
 		// Call the tracking_details function.
-		$tracking_info = self::tracking_details( $tracking_number );
-		if ( ! empty( $tracking_info ) ) {
-			ob_start();
-			load_view(
-				'tracking',
-				array(
-					'trackings'       => $tracking_info,
-					'tracking_number' => $tracking_number,
-				)
-			);
-			$html = ob_get_clean();
+		$shipment = self::tracking_details( $tracking_number );
+		if ( $shipment ) {
+			if ( ! empty( $shipment->trackingDetails->toArray() ) ) {
+				ob_start();
+				load_view(
+					'tracking',
+					array(
+						'trackings'       => $shipment->trackingDetails->toArray(),
+						'tracking_number' => $tracking_number,
+					)
+				);
+				$html = ob_get_clean();
+			} else {
+				$html = esc_html__( 'Your shipment item has been created. Please wait for our agent to collect it.' );
+			}
+
 			// Send success response.
 			wp_send_json_success( array( 'html' => $html ) );
 		} else {
