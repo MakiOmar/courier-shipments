@@ -69,7 +69,7 @@ add_shortcode(
 				<div class="card-body">
 					<form
 					id="shipment-tracking-form"
-					hx-post="<?php echo esc_url( admin_url( 'admin-ajax.php?action=search_tracking_number' ) ); ?>"
+					hx-post="<?php echo esc_url( admin_url( 'admin-ajax.php?action=qr_search_tracking_number' ) ); ?>"
 					hx-target="#tracking-result"
 					hx-indicator="#maglev-loading-indicator"
 					>
