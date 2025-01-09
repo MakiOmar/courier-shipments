@@ -34,7 +34,7 @@ add_shortcode(
 				type="text" 
 				id="tracking-number" 
 				name="tracking_number" 
-				placeholder="Enter tracking number" 
+				placeholder="<?php esc_html_e( 'Enter tracking number', 'coursh' ); ?>" 
 				style="padding:10px; margin: 0 5px;" 
 			/>
 			
