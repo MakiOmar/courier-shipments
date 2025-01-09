@@ -40,16 +40,12 @@ function render_shipment_management_page() {
 	if ( $search_query ) {
 		$query->where(
 			function ( $q ) use ( $search_query ) {
-				$q->where( 'cct_status', 'LIKE', "%$search_query%" )
-				->orWhere( 'receivername', 'LIKE', "%$search_query%" )
+				$q->Where( 'receivername', 'LIKE', "%$search_query%" )
 				->orWhere( 'receiveraddress', 'LIKE', "%$search_query%" )
 				->orWhere( 'receivercountry', 'LIKE', "%$search_query%" )
 				->orWhere( 'receivercity', 'LIKE', "%$search_query%" )
 				->orWhere( 'receiverphone', 'LIKE', "%$search_query%" )
-				->orWhere( 'totalweight', 'LIKE', "%$search_query%" )
-				->orWhere( 'unitweight', 'LIKE', "%$search_query%" )
 				->orWhere( 'contentdescription', 'LIKE', "%$search_query%" )
-				->orWhere( 'terms', 'LIKE', "%$search_query%" )
 				->orWhere( 'tracking_number', 'LIKE', "%$search_query%" );
 			}
 		);
