@@ -211,16 +211,19 @@ class ShipmentsController {
 			wp_send_json_error( array( 'message' => esc_html__( 'No shipment is selected.', 'coursh' ) ) );
 		}
 
-		$shipments_data = array();
+		$html = '';
 		foreach ( $shipment_ids as $shipment_id ) {
 			$shipment = self::courier_search_by_id( $shipment_id );
 			if ( ! $shipment ) {
 				continue;
 			}
-			$shipments_data[] = $shipment;
+            error_log( print_r( $shipment, true ) );
+			ob_start();
+			load_view( 'print', array( 'shipment' => $shipment ) );
+			$html .= ob_get_clean();
 		}
 
-		wp_send_json_success( $shipments_data );
+		wp_send_json_success( $html );
 	}
 
 	/**
