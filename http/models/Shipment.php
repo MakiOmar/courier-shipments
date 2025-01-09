@@ -87,4 +87,11 @@ class Shipment extends Model {
 	public function author() {
 		return $this->belongsTo( User::class, 'cct_author_id' );
 	}
+
+	/**
+	 * Define a relationship to the shipment tracking records.
+	 */
+	public function trackingDetails() {
+		return $this->hasMany( ShipmentTracking::class, 'shipment_id', '_ID' );
+	}
 }
